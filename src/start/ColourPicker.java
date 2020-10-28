@@ -3,7 +3,6 @@ package start;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
 
 public class ColourPicker{
     private JFrame colourWindow;
@@ -21,8 +20,9 @@ public class ColourPicker{
         confirm.setActionCommand("SetColour");
         confirm.addActionListener(listener);
         colourWindow.add(confirm);
+        colourWindow.pack();
 
-        colourWindow.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        colourWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JFrame getColourWindow() {
@@ -31,5 +31,10 @@ public class ColourPicker{
 
     public JColorChooser getPicker() {
         return picker;
+    }
+
+    public void cleanUp(){
+        picker = null;
+        colourWindow.dispose();
     }
 }

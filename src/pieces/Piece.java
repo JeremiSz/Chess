@@ -1,9 +1,20 @@
 package pieces;
 
-public abstract class Piece {
+import game.Board;
 
-    public abstract String getSymbol();
-    public abstract boolean validateMove(float firstPositionX,float firstPositionY,float secondPositionX, float secondPositionY);
+import java.awt.image.BufferedImage;
+
+public abstract class Piece {
+    private BufferedImage pic;
+
+    public Piece(String imageLink){
+        pic = Board.getImage(imageLink);
+    }
+
+    public abstract boolean validateMove(int[] firstPosition, int[] secondPosition);
     public abstract String toString();
 
+    public BufferedImage getPic() {
+        return pic;
+    }
 }
