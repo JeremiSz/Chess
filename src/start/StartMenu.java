@@ -16,6 +16,7 @@ public class StartMenu {
         colourPicker = new ColourPicker(listener);
 
         startWindow = new JFrame("Start Menu");
+        startWindow.setLocationRelativeTo(null);
         JPanel panel = new JPanel(new FlowLayout());
         startWindow.add(panel);
         startWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -1,8 +1,9 @@
 package pieces;
 
 public class King extends Piece {
-    public King(){
-        super("when its in");
+
+    public King(boolean team){
+        super(team?"♔":"♚","King",team);
     }
 
     @Override
@@ -12,10 +13,5 @@ public class King extends Piece {
         if(deltaX > 1 || deltaX < -1) return false;
         if(deltaY > 1 || deltaY < -1) return false;
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "King";
     }
 }
