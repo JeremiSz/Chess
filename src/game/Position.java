@@ -22,4 +22,10 @@ public class Position {
     public static int[] screenFromGrid(int[] position){
         return new int[]{position[0]*grid,position[1]*grid};
     }
+    public static int gridFromScreen(int xORy){
+        return xORy/grid;
+    }
+    public static int screenFromGrid(int xORy){
+        return xORy*grid;
+    }
 }

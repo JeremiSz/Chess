@@ -16,7 +16,6 @@ public class Board extends JPanel{
     public static Piece[][] grid = new Piece[8][12];
     BufferedImage checkerboard;
 
-
     public Board(){
         String url;
         switch (Start.size){
@@ -48,13 +47,29 @@ public class Board extends JPanel{
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         this.setPreferredSize(new Dimension(Start.size,Start.size));
-        //window.pack();
+
+        this.setFont(new Font("SansSerif",Font.PLAIN,Start.size/8));
     }
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(checkerboard,0,0,null);
         super.paint(g);
+        g.drawImage(checkerboard,0,0,null);
+        Piece current;
+        boolean currentTeam = true;
+        g.setColor(Start.team1);
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                current = grid[x][y];
+                if(current != null) {
+                    if(current.getTeam() != currentTeam){
+                        g.setColor(current.getTeam()?Start.team1:Start.team2);
+                        currentTeam = current.getTeam();
+                    }
+                    g.drawString(grid[x][y].getSymbol(), Position.screenFromGrid(x), Position.screenFromGrid(y + 1));
+                }
+            }
+        }
     }
 
     private void setTeam(boolean team){
@@ -68,12 +83,8 @@ public class Board extends JPanel{
         new Rook(team).movePiece(7,team?0:7,0,3);
 
         for (int i = 0; i < 8; i++) {
-            this.add(grid[i][team?0:7].getLabel());
             new Pawn(team).movePiece(i,team?1:6,0,3);
-            this.add(grid[i][team?1:6].getLabel());
         }
-
-
     }
 
     public static BufferedImage getImage(String url){
