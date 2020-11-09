@@ -11,7 +11,17 @@ public class StartListener implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        /*****************************************************
+         *    Title: ActionEvent Class
+         *    Author: Oracle
+         *    Site owner/sponsor: https://docs.oracle.com/
+         *    Date: 2020
+         *    Code version: edited 20 August 2020
+         *    Availability: https://docs.oracle.com/javase/7/docs/api/java/awt/event/ActionEvent.html (Accessed 9 November 2020)
+         *    Modified:  used getActionCommand() found via Intellj
+         *****************************************************/
         switch (e.getActionCommand()){
+            //end of non-original code
             case("SetTeam1"):
                 setTeam(true);
                 break;
@@ -32,7 +42,7 @@ public class StartListener implements ActionListener{
 
     private void setTeam(boolean team){
         Start.startMenu.getStartWindow().setVisible(false);
-        targetTeam = team;
+        this.targetTeam = team;
         Start.startMenu.getColourPicker().getColourWindow().setVisible(true);
     }
     private void setColour(){

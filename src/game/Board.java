@@ -52,6 +52,15 @@ public class Board extends JPanel{
     }
 
     @Override
+    /*****************************************************
+     *    Title: Class Graphics
+     *    Author: Oracle
+     *    Site owner/sponsor: https://docs.oracle.com/
+     *    Date: 2020
+     *    Code version: edited 20 August 2020
+     *    Availability: https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html (Accessed 9 November 2020)
+     *    Modified:  Added everything but the methods of the Graphics class
+     *****************************************************/
     public void paint(Graphics g) {
         super.paint(g);
         g.drawImage(checkerboard,0,0,null);
@@ -71,6 +80,7 @@ public class Board extends JPanel{
             }
         }
     }
+    //End of refactored code
 
     private void setTeam(boolean team){
         new Rook(team).movePiece(0,team?0:7,0,3);
@@ -86,7 +96,15 @@ public class Board extends JPanel{
             new Pawn(team).movePiece(i,team?1:6,0,3);
         }
     }
-
+    /*****************************************************
+     *    Title: loading image tutorial
+     *    Author: Oracle
+     *    Site owner/sponsor: https://docs.oracle.com/
+     *    Date: 2020
+     *    Code version: edited 20 August 2020
+     *    Availability: https://docs.oracle.com/javase/tutorial/2d/images/loadimage.html (Accessed 9 November 2020)
+     *    Modified:  Added everything but the methods of the Graphics class
+     *****************************************************/
     public static BufferedImage getImage(String url){
 
         try {
@@ -97,4 +115,5 @@ public class Board extends JPanel{
             return null;
         }
     }
+    //End of non-original code
 }
