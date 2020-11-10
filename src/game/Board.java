@@ -105,7 +105,7 @@ public class Board extends JPanel{
      *    Availability: https://docs.oracle.com/javase/tutorial/2d/images/loadimage.html (Accessed 9 November 2020)
      *    Modified:  Added everything but the methods of the Graphics class
      *****************************************************/
-    public static BufferedImage getImage(String url){
+    private static BufferedImage getImage(String url){
 
         try {
             return ImageIO.read(new File(url));
@@ -116,4 +116,8 @@ public class Board extends JPanel{
         }
     }
     //End of non-original code
+
+    public static boolean hasPiece(int x,int y){
+        return grid[x][y] != null;
+    }
 }
