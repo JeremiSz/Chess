@@ -29,4 +29,8 @@ public abstract class Piece {
         Board.grid[fromX][fromY] = null;
         Board.grid[toX][toY] = this;
     }
+    public void movePiece(int[] to, int[] from){
+        Board.grid[from[0]][from[1]] = null;
+        Board.grid[to[0]][to[1]] = this;
+    }
 }

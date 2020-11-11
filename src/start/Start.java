@@ -18,4 +18,9 @@ public class Start {
         startMenu = new StartMenu(team1,team2);
         startMenu.getStartWindow().setVisible(true);
     }
+    public static void win(boolean WiningTeam){
+        board.cleanUp();
+        board = null;
+
+    }
 }

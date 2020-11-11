@@ -12,11 +12,14 @@ import java.io.IOException;
 
 public class Board extends JPanel{
 
-    JFrame window;
-    public static Piece[][] grid = new Piece[8][12];
-    BufferedImage checkerboard;
+    private JFrame window;
+    public static Piece[][] grid;
+    private BufferedImage checkerboard;
 
     public Board(){
+
+        grid = new Piece[8][12];
+
         String url;
         switch (Start.size){
             case(2000):
@@ -46,6 +49,8 @@ public class Board extends JPanel{
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
+
+        this.addMouseListener(new Player());
         this.setPreferredSize(new Dimension(Start.size,Start.size));
 
         this.setFont(new Font("SansSerif",Font.PLAIN,Start.size/8));
@@ -78,6 +83,11 @@ public class Board extends JPanel{
                     g.drawString(grid[x][y].getSymbol(), Position.screenFromGrid(x), Position.screenFromGrid(y + 1));
                 }
             }
+        }
+
+        if(tempColour != null){
+            g.setColor(tempColour);
+            g.drawString(tempSymbol,tempX,tempY);
         }
     }
     //End of refactored code
@@ -118,6 +128,28 @@ public class Board extends JPanel{
     //End of non-original code
 
     public static boolean hasPiece(int x,int y){
-        return grid[x][y] != null;
+        return !(grid[x][y] == null);
+    }
+
+    private static String tempSymbol;
+    private static Color tempColour;
+    private static int tempX,tempY;
+
+    public static void setTempPiece(String symbol,Color colour,int x,int y){
+        tempSymbol = symbol;
+        tempX = x;
+        tempY = y;
+        tempColour = colour;
+    }
+    public static void unsetTempPiece(){
+        tempColour = null;
+    }
+
+    public void cleanUp(){
+        window.dispose();
+        window = null;
+        grid = null;
+        checkerboard = null;
+        tempColour = null;
     }
 }
