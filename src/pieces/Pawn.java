@@ -13,12 +13,12 @@ public class Pawn extends Piece{
         int deltaX = firstPosition[0] - secondPosition[0];
         int deltaY = firstPosition[1] - secondPosition[1];
 
-        if(deltaY < 0)deltaY = -deltaY;
+        if(deltaX < 0)deltaX = -deltaX;
 
-        if(deltaX == ((this.getTeam())?1:-1)){
+        if(deltaY == ((this.getTeam())?-1:1)){
             boolean target = Board.hasPiece(secondPosition[0],secondPosition[1]);
-            if(deltaY == 0 && !target) return true;
-            else if(deltaY == 1 && target) return true;
+            if(deltaX == 0 && !target) return true;
+            else if(deltaX == 1 && target) return true;
         }
         return false;
     }

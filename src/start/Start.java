@@ -21,6 +21,8 @@ public class Start {
     public static void win(boolean WiningTeam){
         board.cleanUp();
         board = null;
-
+    }
+    public static void render(){
+        board.repaint();
     }
 }

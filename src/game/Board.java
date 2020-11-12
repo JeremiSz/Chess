@@ -33,7 +33,6 @@ public class Board extends JPanel{
                 break;
         }
         checkerboard = getImage(url);
-
         makeWindow();
         setTeam(false);
         setTeam(true);
@@ -49,8 +48,9 @@ public class Board extends JPanel{
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-
-        this.addMouseListener(new Player());
+        Player mouseAdap = new Player();
+        this.addMouseListener(mouseAdap);
+        this.addMouseMotionListener(mouseAdap);
         this.setPreferredSize(new Dimension(Start.size,Start.size));
 
         this.setFont(new Font("SansSerif",Font.PLAIN,Start.size/8));

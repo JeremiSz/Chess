@@ -5,6 +5,10 @@ import start.Start;
 public class Position {
     private static int grid;
 
+    public static int getGrid() {
+        return grid;
+    }
+
     public static void setSize(){
         grid = (Start.size)/8;
     }
@@ -44,9 +48,10 @@ public class Position {
     public static int gridFromScreen(int xORy){
         if(xORy < 0) xORy = 0;
         else if(xORy > Start.size) xORy = Start.size;
-        xORy = Math.round(xORy/(float)grid);
+
         return xORy/grid;
     }
+
     public static int screenFromGrid(int xORy){
         return xORy*grid;
     }
