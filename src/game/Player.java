@@ -45,7 +45,6 @@ public class Player extends MouseAdapter{
         this.firstPos = null;
         this.selected = null;
         Start.render();
-
     }
 
     @Override
