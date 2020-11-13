@@ -27,52 +27,51 @@ public class Player extends MouseAdapter{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(lastPos == null) return;
-        if(this.firstPos != null){
-            switch (preMove(lastPos)){
-                case (0):
-                    Start.win(currentTeam);
-                    break;
-                case (1):
-                    selected.movePiece(firstPos,lastPos);
-                    currentTeam = !currentTeam;
-                    Start.render();
-                    break;
-                default:
-                    break;
-            }
-            Board.unsetTempPiece();
-            this.firstPos = null;
-            this.selected = null;
-            Start.render();
+        if(this.lastPos == null || this.firstPos == null) return;
+        System.out.print(preMove(lastPos));
+        switch (preMove(lastPos)) {
+            case (0):
+                Start.win(currentTeam);
+                break;
+            case (1):
+                selected.movePiece(lastPos, firstPos);
+                currentTeam = !currentTeam;
+                Start.render();
+                break;
+            default:
+                break;
         }
+        Board.unsetTempPiece();
+        this.firstPos = null;
+        this.selected = null;
+        Start.render();
+
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        lastPos = Position.gridFromScreen(e.getX(),e.getY());
-        if(selected != null && selected.validateMove(firstPos,lastPos)) {
+        int[] tempPos = Position.gridFromScreen(e.getX(),e.getY());
+        if(selected != null && selected.validateMove(firstPos,tempPos)) {
+            lastPos = tempPos;
             Color team = currentTeam ? Start.team1 : Start.team2;
-            System.out.print("X: " + lastPos[0] + " Y: " + lastPos[1]);
+
             int x = Position.screenFromGrid(lastPos[0]);
-            int y = Position.screenFromGrid(lastPos[1]);
-            System.out.println("X: " + x + " Y: " + y);
+            int y = Position.screenFromGrid(lastPos[1] + 1);
             Board.setTempPiece(selected.getSymbol(),team ,x ,y);
             Start.render();
         }
     }
 
-
     private int preMove(int[] lastPos){
-        if(!Board.hasPiece(lastPos[0],lastPos[1])) return 255;
+        if(!Board.hasPiece(lastPos[0],lastPos[1])) return 1;
+
         Piece target = Board.grid[lastPos[0]][lastPos[1]];
         if(target.getTeam() == currentTeam) return 255;
         if(target.toString().equals("King")) return 0;
         else return 1;
     }
 
-    //debug
-
+    //debug to remove
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.print(e.getX() + " " + e.getY() + "\n");

@@ -1,5 +1,6 @@
 package game;
 
+import End.DebugStuff;
 import pieces.*;
 import start.Start;
 
@@ -18,7 +19,7 @@ public class Board extends JPanel{
 
     public Board(){
 
-        grid = new Piece[8][12];
+        grid = new Piece[8][8];
 
         String url;
         switch (Start.size){
@@ -49,6 +50,11 @@ public class Board extends JPanel{
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         Player mouseAdap = new Player();
+        //debugStuff remove for performance
+        DebugStuff ds = new DebugStuff();
+        this.addKeyListener(ds);
+        window.addKeyListener(ds);
+
         this.addMouseListener(mouseAdap);
         this.addMouseMotionListener(mouseAdap);
         this.setPreferredSize(new Dimension(Start.size,Start.size));
