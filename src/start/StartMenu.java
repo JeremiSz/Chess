@@ -10,6 +10,7 @@ public class StartMenu {
 
     private ColourPicker colourPicker;
     private StartListener listener;
+    static String boardFile;
 
     public StartMenu(Color team1, Color team2){
         listener = new StartListener();
@@ -45,6 +46,12 @@ public class StartMenu {
         team2Colour.setActionCommand("SetTeam2");
         team2Colour.addActionListener(listener);
         panel.add(team2Colour);
+
+        JButton chooseBoard = new JButton("Choose Board");
+        chooseBoard.setActionCommand("SetBoard");
+        chooseBoard.addActionListener(listener);
+        panel.add(chooseBoard);
+        boardFile = "start.brd";
 
         JButton startGame = new JButton("Start");
         startGame.setActionCommand("Start");
@@ -91,5 +98,9 @@ public class StartMenu {
         startWindow.dispose();
 
         Start.startMenu = null;
+    }
+
+    static String getBoardFile(){
+        return boardFile;
     }
 }

@@ -2,6 +2,7 @@ package start;
 
 import game.Board;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,6 +35,9 @@ public class StartListener implements ActionListener{
             case("Start"):
                 StartGame();
                 break;
+            case("SetBoard"):
+                setBoard();
+                break;
             default:
                 System.err.println("Unset Button pressed");
                 break;
@@ -52,6 +56,19 @@ public class StartListener implements ActionListener{
         Start.startMenu.getStartWindow().setVisible(true);
     }
 
+    private void setBoard(){
+        JFrame window;
+        JFileChooser picker;
+            window = new JFrame();
+            picker = new JFileChooser();
+            window.add(picker);
+            window.pack();
+
+            int status = picker.showOpenDialog(null);
+            if(status == JFileChooser.APPROVE_OPTION)
+                StartMenu.boardFile = picker.getSelectedFile().getName();
+    }
+
     private void StartGame(){
         switch (Start.startMenu.getSize()){
             case(0):
@@ -68,7 +85,7 @@ public class StartListener implements ActionListener{
                 System.err.println("invalid size");
                 break;
         }
-        Start.board = new Board();
+        Start.board = new Board(StartMenu.getBoardFile());
         Start.startMenu.cleanUp();
     }
 }

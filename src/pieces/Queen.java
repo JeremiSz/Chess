@@ -8,6 +8,8 @@ public class Queen extends Piece{
 
     @Override
     public boolean validateMove(int[] firstPosition, int[] secondPosition) {
+        if(generalValidate(firstPosition,secondPosition)) return false;
+
         int deltaX = firstPosition[0] - secondPosition[0];
         int deltaY = firstPosition[1] - secondPosition[1];
 

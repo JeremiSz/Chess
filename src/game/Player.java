@@ -28,18 +28,12 @@ public class Player extends MouseAdapter{
     @Override
     public void mouseReleased(MouseEvent e) {
         if(this.lastPos == null || this.firstPos == null) return;
-        System.out.print(preMove(lastPos));
-        switch (preMove(lastPos)) {
-            case (0):
-                Start.win(currentTeam);
-                break;
-            case (1):
-                selected.movePiece(lastPos, firstPos);
-                currentTeam = !currentTeam;
-                Start.render();
-                break;
-            default:
-                break;
+        if(checkWin(lastPos))
+            Start.win(currentTeam);
+        else {
+            selected.movePiece(lastPos, firstPos);
+            currentTeam = !currentTeam;
+            Start.render();
         }
         Board.unsetTempPiece();
         this.firstPos = null;
@@ -61,13 +55,12 @@ public class Player extends MouseAdapter{
         }
     }
 
-    private int preMove(int[] lastPos){
-        if(!Board.hasPiece(lastPos[0],lastPos[1])) return 1;
-
-        Piece target = Board.grid[lastPos[0]][lastPos[1]];
-        if(target.getTeam() == currentTeam) return 255;
-        if(target.toString().equals("King")) return 0;
-        else return 1;
+    private boolean checkWin(int[] lastPos){
+        if(Board.hasPiece(lastPos[0],lastPos[1])) {
+            Piece target = Board.grid[lastPos[0]][lastPos[1]];
+            if (target.toString().equals("King")) return true;
+        }
+        return false;
     }
 
     //debug to remove

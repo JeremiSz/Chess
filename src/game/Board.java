@@ -8,8 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class Board extends JPanel{
 
@@ -17,9 +16,8 @@ public class Board extends JPanel{
     public static Piece[][] grid;
     private BufferedImage checkerboard;
 
-    public Board(){
 
-        grid = new Piece[8][8];
+    public Board(String file){
 
         String url;
         switch (Start.size){
@@ -35,8 +33,7 @@ public class Board extends JPanel{
         }
         checkerboard = getImage(url);
         makeWindow();
-        setTeam(false);
-        setTeam(true);
+        setTeam(file);
         window.pack();
         window.setVisible(true);
     }
@@ -49,14 +46,14 @@ public class Board extends JPanel{
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        Player mouseAdap = new Player();
+        Player mouseAdapt = new Player();
+
         //debugStuff remove for performance
         DebugStuff ds = new DebugStuff();
-        this.addKeyListener(ds);
         window.addKeyListener(ds);
 
-        this.addMouseListener(mouseAdap);
-        this.addMouseMotionListener(mouseAdap);
+        this.addMouseListener(mouseAdapt);
+        this.addMouseMotionListener(mouseAdapt);
         this.setPreferredSize(new Dimension(Start.size,Start.size));
 
         this.setFont(new Font("SansSerif",Font.PLAIN,Start.size/8));
@@ -98,18 +95,14 @@ public class Board extends JPanel{
     }
     //End of refactored code
 
-    private void setTeam(boolean team){
-        new Rook(team).movePiece(0,team?0:7,0,3);
-        new Knight(team).movePiece(1,team?0:7,0,3);
-        new Bishop(team).movePiece(2,team?0:7,0,3);
-        new King(team).movePiece(3,team?0:7,0,3);
-        new Queen(team).movePiece(4,team?0:7,0,3);
-        new Bishop(team).movePiece(5,team?0:7,0,3);
-        new Knight(team).movePiece(6,team?0:7,0,3);
-        new Rook(team).movePiece(7,team?0:7,0,3);
-
-        for (int i = 0; i < 8; i++) {
-            new Pawn(team).movePiece(i,team?1:6,0,3);
+    private void setTeam(String file){
+        try {
+            FileInputStream inputStream = new FileInputStream(file);
+            ObjectInputStream out = new ObjectInputStream(inputStream);
+            Board.grid = (Piece[][])out.readObject();
+            out.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
     /*****************************************************

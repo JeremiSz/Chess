@@ -2,7 +2,9 @@ package pieces;
 
 import game.Board;
 
-public abstract class Piece {
+import java.io.Serializable;
+
+public abstract class Piece implements Serializable {
     private String name,symbol;
     private boolean team;
 
@@ -32,5 +34,11 @@ public abstract class Piece {
     public void movePiece(int[] to, int[] from){
         Board.grid[from[0]][from[1]] = null;
         Board.grid[to[0]][to[1]] = this;
+    }
+
+    protected boolean generalValidate(int[] first,int[] last){
+        Piece target = Board.grid[last[0]][last[1]];
+        if(target != null && target.getTeam() == this.team) return true;
+        return false;
     }
 }
