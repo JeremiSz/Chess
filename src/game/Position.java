@@ -1,6 +1,6 @@
 package game;
 
-import start.Start;
+import start.GameControl;
 
 public class Position {
     private static int grid;
@@ -10,15 +10,15 @@ public class Position {
     }
 
     public static void setSize(){
-        grid = (Start.size)/8;
+        grid = (GameControl.size)/8;
     }
 
     public static int[] gridFromScreen(int x,int y){
         if(x < 0) x = 0;
-        else if(x > Start.size) x = Start.size;
+        else if(x > GameControl.size) x = GameControl.size;
 
         if(y < 0) y = 0;
-        else if(y > Start.size) y = Start.size;
+        else if(y > GameControl.size) y = GameControl.size;
 
         x = x/grid;
         y = y/grid;
@@ -27,10 +27,10 @@ public class Position {
     }
     public static int[] gridFromScreen(int[] position){
         if(position[0] < 0) position[0] = 0;
-        else if(position[0] > Start.size) position[0] = Start.size;
+        else if(position[0] > GameControl.size) position[0] = GameControl.size;
 
         if(position[1] < 0) position[1] = 0;
-        else if(position[1] > Start.size) position[1] = Start.size;
+        else if(position[1] > GameControl.size) position[1] = GameControl.size;
 
         position[0] = position[0]/grid;
         position[1] = position[1]/grid;
@@ -47,7 +47,7 @@ public class Position {
 
     public static int gridFromScreen(int xORy){
         if(xORy < 0) xORy = 0;
-        else if(xORy > Start.size) xORy = Start.size;
+        else if(xORy > GameControl.size) xORy = GameControl.size;
 
         return xORy/grid;
     }

@@ -1,10 +1,11 @@
 package start;
 
+import End.EndScreen;
 import game.Board;
 
 import java.awt.Color;
 
-public class Start {
+public class GameControl {
     public static Color team1;
     public static Color team2;
     static StartMenu startMenu;
@@ -18,10 +19,14 @@ public class Start {
         startMenu = new StartMenu(team1,team2);
         startMenu.getStartWindow().setVisible(true);
     }
-    public static void win(boolean WiningTeam){
+
+
+    public static void win(boolean winingTeam){
         board.cleanUp();
         board = null;
+        new EndScreen(winingTeam?team1:team2);
     }
+
     public static void render(){
         board.repaint();
     }

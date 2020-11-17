@@ -45,15 +45,15 @@ public class StartListener implements ActionListener{
     }
 
     private void setTeam(boolean team){
-        Start.startMenu.getStartWindow().setVisible(false);
+        GameControl.startMenu.getStartWindow().setVisible(false);
         this.targetTeam = team;
-        Start.startMenu.getColourPicker().getColourWindow().setVisible(true);
+        GameControl.startMenu.getColourPicker().getColourWindow().setVisible(true);
     }
     private void setColour(){
-        Start.startMenu.getColourPicker().getColourWindow().setVisible(false);
-        Color colour = Start.startMenu.getColourPicker().getPicker().getColor();
-        Start.startMenu.updateColour(colour,targetTeam);
-        Start.startMenu.getStartWindow().setVisible(true);
+        GameControl.startMenu.getColourPicker().getColourWindow().setVisible(false);
+        Color colour = GameControl.startMenu.getColourPicker().getPicker().getColor();
+        GameControl.startMenu.updateColour(colour,targetTeam);
+        GameControl.startMenu.getStartWindow().setVisible(true);
     }
 
     private void setBoard(){
@@ -70,22 +70,22 @@ public class StartListener implements ActionListener{
     }
 
     private void StartGame(){
-        switch (Start.startMenu.getSize()){
+        switch (GameControl.startMenu.getSize()){
             case(0):
-                Start.size = 400;
+                GameControl.size = 400;
                 break;
             case(1):
-                Start.size = 1000;
+                GameControl.size = 1000;
                 break;
             case(2):
-                Start.size = 2000;
+                GameControl.size = 2000;
                 break;
             default:
-                Start.size = 400;
+                GameControl.size = 400;
                 System.err.println("invalid size");
                 break;
         }
-        Start.board = new Board(StartMenu.getBoardFile());
-        Start.startMenu.cleanUp();
+        GameControl.board = new Board(StartMenu.getBoardFile());
+        GameControl.startMenu.cleanUp();
     }
 }

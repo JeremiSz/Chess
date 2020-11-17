@@ -68,11 +68,11 @@ public class StartMenu {
     public void updateColour(Color colour, boolean team){
         if(team) {
             team1Colour.setForeground(colour);
-            Start.team1 = colour;
+            GameControl.team1 = colour;
         }
         else {
             team2Colour.setForeground(colour);
-            Start.team2 = colour;
+            GameControl.team2 = colour;
         }
         startWindow.repaint();
     }
@@ -97,7 +97,7 @@ public class StartMenu {
 
         startWindow.dispose();
 
-        Start.startMenu = null;
+        GameControl.startMenu = null;
     }
 
     static String getBoardFile(){

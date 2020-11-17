@@ -1,8 +1,8 @@
 package game;
 
-import End.DebugStuff;
+import debug.keyShortcuts;
 import pieces.*;
-import start.Start;
+import start.GameControl;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,7 +20,7 @@ public class Board extends JPanel{
     public Board(String file){
 
         String url;
-        switch (Start.size){
+        switch (GameControl.size){
             case(2000):
                 url = "images/boardB.png";
                 break;
@@ -49,14 +49,14 @@ public class Board extends JPanel{
         Player mouseAdapt = new Player();
 
         //debugStuff remove for performance
-        DebugStuff ds = new DebugStuff();
+        keyShortcuts ds = new keyShortcuts();
         window.addKeyListener(ds);
 
         this.addMouseListener(mouseAdapt);
         this.addMouseMotionListener(mouseAdapt);
-        this.setPreferredSize(new Dimension(Start.size,Start.size));
+        this.setPreferredSize(new Dimension(GameControl.size, GameControl.size));
 
-        this.setFont(new Font("SansSerif",Font.PLAIN,Start.size/8));
+        this.setFont(new Font("SansSerif",Font.PLAIN, GameControl.size/8));
     }
 
     @Override
@@ -74,13 +74,13 @@ public class Board extends JPanel{
         g.drawImage(checkerboard,0,0,null);
         Piece current;
         boolean currentTeam = true;
-        g.setColor(Start.team1);
+        g.setColor(GameControl.team1);
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 current = grid[x][y];
                 if(current != null) {
                     if(current.getTeam() != currentTeam){
-                        g.setColor(current.getTeam()?Start.team1:Start.team2);
+                        g.setColor(current.getTeam()? GameControl.team1: GameControl.team2);
                         currentTeam = current.getTeam();
                     }
                     g.drawString(grid[x][y].getSymbol(), Position.screenFromGrid(x), Position.screenFromGrid(y + 1));

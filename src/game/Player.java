@@ -1,7 +1,7 @@
 package game;
 
 import pieces.Piece;
-import start.Start;
+import start.GameControl;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -29,16 +29,16 @@ public class Player extends MouseAdapter{
     public void mouseReleased(MouseEvent e) {
         if(this.lastPos == null || this.firstPos == null) return;
         if(checkWin(lastPos))
-            Start.win(currentTeam);
+            GameControl.win(currentTeam);
         else {
             selected.movePiece(lastPos, firstPos);
             currentTeam = !currentTeam;
-            Start.render();
+            GameControl.render();
         }
         Board.unsetTempPiece();
         this.firstPos = null;
         this.selected = null;
-        Start.render();
+        GameControl.render();
     }
 
     @Override
@@ -46,12 +46,12 @@ public class Player extends MouseAdapter{
         int[] tempPos = Position.gridFromScreen(e.getX(),e.getY());
         if(selected != null && selected.validateMove(firstPos,tempPos)) {
             lastPos = tempPos;
-            Color team = currentTeam ? Start.team1 : Start.team2;
+            Color team = currentTeam ? GameControl.team1 : GameControl.team2;
 
             int x = Position.screenFromGrid(lastPos[0]);
             int y = Position.screenFromGrid(lastPos[1] + 1);
             Board.setTempPiece(selected.getSymbol(),team ,x ,y);
-            Start.render();
+            GameControl.render();
         }
     }
 
