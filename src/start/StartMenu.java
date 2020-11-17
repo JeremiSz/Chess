@@ -3,104 +3,78 @@ package start;
 import javax.swing.*;
 import java.awt.*;
 
-public class StartMenu {
-    private JFrame startWindow;
+public class StartMenu  extends  JPanel{
     private JButton team1Colour, team2Colour;
     private JComboBox sizePicker;
 
-    private ColourPicker colourPicker;
-    private StartListener listener;
-    static String boardFile;
+    private JFrame window;
 
-    public StartMenu(Color team1, Color team2){
-        listener = new StartListener();
-        colourPicker = new ColourPicker(listener);
+    public StartMenu(JFrame window){
+        StartListener listener = new StartListener(window,this);
+        new ColourPicker(listener);
 
-        startWindow = new JFrame("Start Menu");
-        startWindow.setLocationRelativeTo(null);
-        JPanel panel = new JPanel(new FlowLayout());
-        startWindow.add(panel);
-        startWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.window = window;
+        this.window.add(this);
+
+        this.setLayout(new FlowLayout());
 
         JLabel sizeLabel = new JLabel("Size");
-        panel.add(sizeLabel);
+        this.add(sizeLabel);
 
         String[] sizes = {"Small","Medium","Large"};
         sizePicker = new JComboBox(sizes);
-        panel.add(sizePicker);
+        this.add(sizePicker);
 
         JLabel team1Label = new JLabel("Team 1");
-        panel.add(team1Label);
+        this.add(team1Label);
 
         team1Colour = new JButton("■");
-        team1Colour.setForeground(team1);
+        team1Colour.setForeground(Color.RED);
         team1Colour.setActionCommand("SetTeam1");
         team1Colour.addActionListener(listener);
-        panel.add(team1Colour);
+        this.add(team1Colour);
 
         JLabel team2Label = new JLabel("Team 2");
-        panel.add(team2Label);
+        this.add(team2Label);
 
         team2Colour = new JButton("■");
-        team2Colour.setForeground(team2);
+        team2Colour.setForeground(Color.BLUE);
         team2Colour.setActionCommand("SetTeam2");
         team2Colour.addActionListener(listener);
-        panel.add(team2Colour);
+        this.add(team2Colour);
 
         JButton chooseBoard = new JButton("Choose Board");
         chooseBoard.setActionCommand("SetBoard");
         chooseBoard.addActionListener(listener);
-        panel.add(chooseBoard);
-        boardFile = "start.brd";
+        this.add(chooseBoard);
 
         JButton startGame = new JButton("Start");
         startGame.setActionCommand("Start");
         startGame.addActionListener(listener);
-        panel.add(startGame);
+        this.add(startGame);
 
-        startWindow.pack();
-    }
-
-    public JFrame getStartWindow() {
-        return startWindow;
+        window.pack();
+        window.setVisible(true);
     }
 
     public void updateColour(Color colour, boolean team){
-        if(team) {
+
+        if(team)
             team1Colour.setForeground(colour);
-            GameControl.team1 = colour;
-        }
-        else {
+        else
             team2Colour.setForeground(colour);
-            GameControl.team2 = colour;
-        }
-        startWindow.repaint();
+
+        window.repaint();
     }
 
-    public int getSize(){
-        return sizePicker.getSelectedIndex();
+    public int getBoardSize(){
+         return sizePicker.getSelectedIndex();
     }
 
-    public ColourPicker getColourPicker() {
-        return colourPicker;
-    }
-
-    public void cleanUp(){
-        team2Colour = null;
-        team1Colour = null;
-        sizePicker = null;
-
-        colourPicker.cleanUp();
-        colourPicker = null;
-
-        listener = null;
-
-        startWindow.dispose();
-
-        GameControl.startMenu = null;
-    }
-
-    static String getBoardFile(){
-        return boardFile;
+    public Color getTeamColour(boolean team){
+        if(team)
+            return team1Colour.getForeground();
+        else
+            return team2Colour.getForeground();
     }
 }

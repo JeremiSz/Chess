@@ -9,6 +9,18 @@ import java.awt.event.ActionListener;
 
 public class StartListener implements ActionListener{
     private boolean targetTeam;
+    private StartMenu menu;
+    private JFrame window;
+    private ColourPicker picker;
+    private String boardFile;
+
+    public StartListener(JFrame window, StartMenu menu){
+            this.menu = menu;
+            this.window = window;
+            this.picker = new ColourPicker(this);
+
+            this.boardFile = "start.brd";
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -45,15 +57,26 @@ public class StartListener implements ActionListener{
     }
 
     private void setTeam(boolean team){
-        GameControl.startMenu.getStartWindow().setVisible(false);
+        window.setVisible(false);
         this.targetTeam = team;
-        GameControl.startMenu.getColourPicker().getColourWindow().setVisible(true);
+
+        window.remove(menu);
+        window.add(picker);
+        window.pack();
+
+        window.setVisible(true);
     }
+
     private void setColour(){
-        GameControl.startMenu.getColourPicker().getColourWindow().setVisible(false);
-        Color colour = GameControl.startMenu.getColourPicker().getPicker().getColor();
-        GameControl.startMenu.updateColour(colour,targetTeam);
-        GameControl.startMenu.getStartWindow().setVisible(true);
+        window.setVisible(false);
+        Color colour = picker.getColour();
+        menu.updateColour(colour,targetTeam);
+
+        window.remove(picker);
+        window.add(menu);
+        window.pack();
+
+        window.setVisible(true);
     }
 
     private void setBoard(){
@@ -66,26 +89,12 @@ public class StartListener implements ActionListener{
 
             int status = picker.showOpenDialog(null);
             if(status == JFileChooser.APPROVE_OPTION)
-                StartMenu.boardFile = picker.getSelectedFile().getName();
+                boardFile = picker.getSelectedFile().getName();
     }
 
     private void StartGame(){
-        switch (GameControl.startMenu.getSize()){
-            case(0):
-                GameControl.size = 400;
-                break;
-            case(1):
-                GameControl.size = 1000;
-                break;
-            case(2):
-                GameControl.size = 2000;
-                break;
-            default:
-                GameControl.size = 400;
-                System.err.println("invalid size");
-                break;
-        }
-        GameControl.board = new Board(StartMenu.getBoardFile());
-        GameControl.startMenu.cleanUp();
+        window.setVisible(false);
+        window.remove(menu);
+        new Board(boardFile,menu.getTeamColour(true),menu.getTeamColour(false),menu.getBoardSize(),window);
     }
 }

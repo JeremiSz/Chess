@@ -1,33 +1,18 @@
 package start;
 
-import End.EndScreen;
-import game.Board;
-
-import java.awt.Color;
+import javax.swing.*;
 
 public class GameControl {
-    public static Color team1;
-    public static Color team2;
-    static StartMenu startMenu;
-    static Board board;
-    public static int size;
+    private static JFrame window;
 
     public static void main(String[] args) {
-        team1 = Color.RED;
-        team2 = Color.BLUE;
+        if(window == null) {
+            window = new JFrame("Chess");
+            window.setResizable(false);
+            window.setLocationRelativeTo(null);
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        }
 
-        startMenu = new StartMenu(team1,team2);
-        startMenu.getStartWindow().setVisible(true);
-    }
-
-
-    public static void win(boolean winingTeam){
-        board.cleanUp();
-        board = null;
-        new EndScreen(winingTeam?team1:team2);
-    }
-
-    public static void render(){
-        board.repaint();
+        new StartMenu(window);
     }
 }

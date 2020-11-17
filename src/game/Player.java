@@ -1,25 +1,31 @@
 package game;
 
 import pieces.Piece;
-import start.GameControl;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Player extends MouseAdapter{
+
+public class Player extends MouseAdapter {
+
+    private Board board;
+
     private boolean currentTeam = false;
-    private int[] firstPos,lastPos;
+    private int[] firstPos, lastPos;
     private Piece selected;
+
+    public Player(Board board) {
+        this.board = board;
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if(this.firstPos != null) return;
+        if (this.firstPos != null) return;
 
-        int[] firstPos = Position.gridFromScreen(e.getX(),e.getY());
+        int[] firstPos = Position.gridFromScreen(e.getX(), e.getY());
 
-        if(Board.hasPiece(firstPos[0],firstPos[1]) && Board.grid[firstPos[0]][firstPos[1]].getTeam() == this.currentTeam){
-            System.out.print("Got one");
+        if (Board.hasPiece(firstPos[0], firstPos[1]) && Board.grid[firstPos[0]][firstPos[1]].getTeam() == this.currentTeam) {
             this.firstPos = firstPos;
             this.selected = Board.grid[firstPos[0]][firstPos[1]];
         }
@@ -27,50 +33,47 @@ public class Player extends MouseAdapter{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(this.lastPos == null || this.firstPos == null) return;
-        if(checkWin(lastPos))
-            GameControl.win(currentTeam);
+        if (this.lastPos == null || this.firstPos == null) return;
+
+        if (checkWin(lastPos))
+            this.board.win(currentTeam);
+
         else {
             selected.movePiece(lastPos, firstPos);
             currentTeam = !currentTeam;
-            GameControl.render();
+            board.repaint();
         }
-        Board.unsetTempPiece();
+
+        this.board.unsetTempPiece();
         this.firstPos = null;
         this.selected = null;
-        GameControl.render();
+
+        this.board.repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        int[] tempPos = Position.gridFromScreen(e.getX(),e.getY());
-        if(selected != null && selected.validateMove(firstPos,tempPos)) {
+        int[] tempPos = Position.gridFromScreen(e.getX(), e.getY());
+        if (selected != null && selected.validateMove(firstPos, tempPos)) {
             lastPos = tempPos;
-            Color team = currentTeam ? GameControl.team1 : GameControl.team2;
+            Color team = currentTeam ? this.board.getColour1() : this.board.getColour2();
 
             int x = Position.screenFromGrid(lastPos[0]);
-            int y = Position.screenFromGrid(lastPos[1] + 1);
-            Board.setTempPiece(selected.getSymbol(),team ,x ,y);
-            GameControl.render();
+            int y = Position.screenFromGrid((lastPos[1] + 1));
+            this.board.setTempPiece(selected.getSymbol(), team, x, y);
+            this.board.repaint();
         }
     }
 
-    private boolean checkWin(int[] lastPos){
-        if(Board.hasPiece(lastPos[0],lastPos[1])) {
+    private boolean checkWin(int[] lastPos) {
+        if (Board.hasPiece(lastPos[0], lastPos[1])) {
+
             Piece target = Board.grid[lastPos[0]][lastPos[1]];
-            if (target.toString().equals("King")) return true;
+
+            if (target.toString().equals("King"))
+                return true;
+
         }
         return false;
-    }
-
-    //debug to remove
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        System.out.print(e.getX() + " " + e.getY() + "\n");
-        int[] output = Position.gridFromScreen(e.getX(),e.getY());
-        System.out.print(output[0] + " " + output[1] + "\n");
-        if(Board.hasPiece(output[0],output[1])){
-            System.out.println(Board.grid[output[0]][output[1]].toString());
-        }
     }
 }

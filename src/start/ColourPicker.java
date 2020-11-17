@@ -4,13 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class ColourPicker{
-    private JFrame colourWindow;
-    private JColorChooser picker;
+public class ColourPicker extends JPanel{
+    private JColorChooser colorChooser;
 
     public ColourPicker(ActionListener listener){
-        colourWindow = new JFrame("Pick Colour");
-        colourWindow.setLayout(new FlowLayout());
+        this.setLayout(new FlowLayout());
 /*****************************************************
  *    Title: JColorChooser
  *    Author: Oracle
@@ -21,26 +19,17 @@ public class ColourPicker{
  *    Modified:  Converted from C# to Java
  *****************************************************/
 //got lucky as I found this by typing color and intelj suggested it.
-        picker = new JColorChooser();
-        colourWindow.add(picker);
+        colorChooser = new JColorChooser();
+        this.add(colorChooser);
 //End of non-original code
 
         JButton confirm = new JButton("Confirm");
         confirm.setActionCommand("SetColour");
         confirm.addActionListener(listener);
-        colourWindow.add(confirm);
-        colourWindow.pack();
-
-        colourWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.add(confirm);
     }
 
-    public JFrame getColourWindow() {
-        return colourWindow;
-    }
-    public JColorChooser getPicker() { return picker; }
-
-    public void cleanUp(){
-        picker = null;
-        colourWindow.dispose();
+    public Color getColour(){
+        return colorChooser.getColor();
     }
 }
