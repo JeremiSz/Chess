@@ -127,6 +127,25 @@ public class Board extends JPanel{
             out.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            grid = new Piece[8][8];
+            boolean team = true;
+            for (int i = 0; i < 2; i++) {
+                new Rook(team).movePiece(0,team?0:7,0,3);
+                new Knight(team).movePiece(1,team?0:7,0,3);
+                new Bishop(team).movePiece(2,team?0:7,0,3);
+                new King(team).movePiece(3,team?0:7,0,3);
+                new Queen(team).movePiece(4,team?0:7,0,3);
+                new Bishop(team).movePiece(5,team?0:7,0,3);
+                new Knight(team).movePiece(6,team?0:7,0,3);
+                new Rook(team).movePiece(7,team?0:7,0,3);
+
+                for (int j = 0; j < 8; j++) {
+                    new Pawn(team).movePiece(j, team ? 1 : 6, 0, 3);
+                }
+
+                team = false;
+            }
+
         }
     }
     /*****************************************************

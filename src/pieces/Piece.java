@@ -36,9 +36,8 @@ public abstract class Piece implements Serializable {
         Board.grid[to[0]][to[1]] = this;
     }
 
-    protected boolean generalValidate(int[] first,int[] last){
+    protected boolean isBlocked(int[] last){
         Piece target = Board.grid[last[0]][last[1]];
-        if(target != null && target.getTeam() == this.team) return true;
-        return false;
+        return (target != null && target.getTeam() == this.team);
     }
 }

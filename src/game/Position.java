@@ -3,6 +3,7 @@ package game;
 public class Position {
     private static int grid;
     private static int size;
+    private static final int maxGrid = 7,minGrid = 0;
 
     public static void setSize(int length){
         size = length;
@@ -10,18 +11,32 @@ public class Position {
     }
 
     public static int[] gridFromScreen(int x,int y){
-        if(x < 0) x = 0;
-        else if(x > size) x = size;
-
-        if(y < 0) y = 0;
-        else if(y > size) y = size;
-
         x = x/grid;
         y = y/grid;
+
+        if(x < minGrid)
+            x = minGrid;
+        else if(x > maxGrid)
+            x = maxGrid;
+
+        if(y < minGrid)
+            y = minGrid;
+        else if(y > maxGrid)
+            y = maxGrid;
 
         return new int[]{x,y};
     }
     public static int[] gridFromScreen(int[] position){
+        for (int i = 0; i < 2; i++) {
+            position[i] = position[i]/grid;
+
+            if (position[i] > minGrid)
+                position[i] = minGrid;
+            else if(position[i] > maxGrid)
+                position[i] = maxGrid;
+        }
+
+
         if(position[0] < 0) position[0] = 0;
         else if(position[0] > size) position[0] = size;
 
@@ -42,8 +57,12 @@ public class Position {
     }
 
     public static int gridFromScreen(int xORy){
-        if(xORy < 0) xORy = 0;
-        else if(xORy > size) xORy = size;
+        xORy /= grid;
+
+        if(xORy < minGrid)
+            xORy = minGrid;
+        else if(xORy > maxGrid)
+            xORy = maxGrid;
 
         return xORy/grid;
     }
