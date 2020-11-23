@@ -20,7 +20,7 @@ public class Pawn extends Piece{
         if(deltaY == ((this.getTeam())?-1:1)){
             boolean target = Board.hasPiece(secondPosition[0],secondPosition[1]);
             if(deltaX == 0 && !target) return true;
-            else if(deltaX == 1 && target) return true;
+            else return deltaX == 1 && target;
         }
         return false;
     }

@@ -9,9 +9,9 @@ import java.awt.event.ActionListener;
 
 public class StartListener implements ActionListener{
     private boolean targetTeam;
-    private StartMenu menu;
-    private JFrame window;
-    private ColourPicker picker;
+    private final StartMenu menu;
+    private final JFrame window;
+    private final ColourPicker picker;
     private String boardFile;
 
     public StartListener(JFrame window, StartMenu menu){

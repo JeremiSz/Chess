@@ -14,7 +14,6 @@ public class King extends Piece {
         int deltaY = firstPosition[1] - secondPosition[1];
 
         if(deltaX > 1 || deltaX < -1) return false;
-        if(deltaY > 1 || deltaY < -1) return false;
-        return true;
+        return deltaY <= 1 && deltaY >= -1;
     }
 }

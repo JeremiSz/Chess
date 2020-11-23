@@ -16,9 +16,6 @@ public class Knight extends Piece{
         if(deltaX<0) deltaX = -deltaX;
         if(deltaY<0) deltaY = -deltaY;
 
-        if((deltaX == 1 && deltaY ==2 ) || (deltaX == 2 && deltaY == 1))
-            return true;
-        else
-            return false;
+        return (deltaX == 1 && deltaY == 2) || (deltaX == 2 && deltaY == 1);
     }
 }

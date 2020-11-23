@@ -12,7 +12,7 @@ import java.io.*;
 
 public class Board extends JPanel{
 
-    private JFrame window;
+    private final JFrame window;
     public static Piece[][] grid;
     private BufferedImage checkerboard;
 
@@ -73,7 +73,6 @@ public class Board extends JPanel{
         window.add(this);
         Player mouseAdapt = new Player(this);
 
-        //debugStuff remove for performance
         keyShortcuts keyAdapter = new keyShortcuts();
         window.addKeyListener(keyAdapter);
 
@@ -196,16 +195,13 @@ public class Board extends JPanel{
 
     public void win(boolean winingTeam) {
         window.remove(this);
-        String output = (winingTeam?"Upper team ":"Lower team ") + " team won\n\nPlay again?";
+        String output = "Team" + (winingTeam?1:2) + " team won\n\nPlay again?";
         int result = JOptionPane.showConfirmDialog(null, output, "Winner!", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
-        switch (result) {
-            case (JOptionPane.OK_OPTION):
-                GameControl.main(new String[0]);
-                break;
-            default:
-                System.exit(0);
-                break;
+        if (result == JOptionPane.OK_OPTION) {
+            GameControl.main(new String[0]);
+        } else {
+            System.exit(0);
         }
     }
 }

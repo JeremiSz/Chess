@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 
 public class Player extends MouseAdapter {
 
-    private Board board;
+    private final Board board;
 
     private boolean currentTeam = false;
     private int[] firstPos, lastPos;
@@ -45,17 +45,21 @@ public class Player extends MouseAdapter {
         }
 
         this.board.unsetTempPiece();
+
         this.firstPos = null;
         this.selected = null;
-
+        this.lastPos = null;
+        
         this.board.repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         int[] tempPos = Position.gridFromScreen(e.getX(), e.getY());
+
         if (selected != null && selected.validateMove(firstPos, tempPos)) {
             lastPos = tempPos;
+
             Color team = currentTeam ? this.board.getColour1() : this.board.getColour2();
 
             int x = Position.screenFromGrid(lastPos[0]);
@@ -66,14 +70,9 @@ public class Player extends MouseAdapter {
     }
 
     private boolean checkWin(int[] lastPos) {
-        if (Board.hasPiece(lastPos[0], lastPos[1])) {
+        if (!Board.hasPiece(lastPos[0], lastPos[1])) return false;
 
-            Piece target = Board.grid[lastPos[0]][lastPos[1]];
-
-            if (target.toString().equals("King"))
-                return true;
-
-        }
-        return false;
+        Piece target = Board.grid[lastPos[0]][lastPos[1]];
+        return target.toString().equals("King");
     }
 }

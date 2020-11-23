@@ -4,10 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StartMenu  extends  JPanel{
-    private JButton team1Colour, team2Colour;
-    private JComboBox sizePicker;
+    private final JButton team1Colour,team2Colour;
+    private final JComboBox sizePicker;
 
-    private JFrame window;
+    private final JFrame window;
 
     public StartMenu(JFrame window){
         StartListener listener = new StartListener(window,this);

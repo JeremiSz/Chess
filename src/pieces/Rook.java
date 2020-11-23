@@ -17,12 +17,12 @@ public class Rook extends Piece{
 
         if (deltaX != 0 && deltaY != 0) return false;
 
-        return  !checkbetweenRook(firstPosition, secondPosition, deltaX, deltaY);
+        return  !checkBetweenRook(firstPosition, secondPosition, deltaX, deltaY);
     }
 
-    static boolean checkbetweenRook(int[] firstPosition, int[] secondPosition, int deltaX, int deltaY) {
+    static boolean checkBetweenRook(int[] firstPosition, int[] secondPosition, int deltaX, int deltaY) {
         if (deltaX == 0) {
-            if (deltaX < 0) {
+            if (deltaY < 0) {
                 for (int i = firstPosition[1]; i > secondPosition[1]; i--) {
                     if (Board.hasPiece(firstPosition[0], i)) return true;
                 }
@@ -33,7 +33,7 @@ public class Rook extends Piece{
             }
         }
         else {
-            if (deltaY < 0) {
+            if (deltaX < 0) {
                 for (int i = firstPosition[0]; i > secondPosition[0]; i--) {
                     if (Board.hasPiece(i, firstPosition[1])) return true;
                 }
