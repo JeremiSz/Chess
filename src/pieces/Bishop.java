@@ -17,24 +17,25 @@ public class Bishop extends Piece{
 
        if((deltaX != deltaY) && (deltaX != -deltaY)) return false;
 
-       byte directionY = (byte)(deltaY>0?-1:1);
 //the function only goes left to right. By reversing the order of the argument locations I can avoid writing another
-       if(deltaX<0)
+       if(deltaX<0) {
+           byte directionY = (byte)(deltaY>0?-1:1);
            return checkBetween(firstPosition, secondPosition, directionY);
-       else
+       }
+       else {
+           byte directionY = (byte)(deltaY>0?1:-1);
            return checkBetween(secondPosition, firstPosition, directionY);
+       }
 
     }
 
     static boolean checkBetween(int[] left, int[] right,byte moveY){
-       int x = left[0];
+       int x = left[0] + 1;
        int y = left[1];
-        System.out.println("Left: " + x + " " + y + " Right: " + left[0] + " " + left[1] + " " + moveY);
-        while (x < right[0]){
-            x++;
+       while (x < right[0]){
             y += moveY;
-            System.out.println(Board.hasPiece(x,y));
             if(Board.hasPiece(x,y))  return false;
+            x++;
         }
         return true;
     }

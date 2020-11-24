@@ -19,7 +19,7 @@ public class Board extends JPanel{
     private final Color team1;
     private final Color team2;
 
-    public Board(String file,Color team1, Color team2, int size,JFrame window){
+    public Board(File file,Color team1, Color team2, int size,JFrame window){
         super();
         this.team1 = team1;
         this.team2 = team2;
@@ -118,7 +118,7 @@ public class Board extends JPanel{
     }
     //End of refactored code
 
-    private void setTeam(String file){
+    private void setTeam(File file){
         try {
             FileInputStream inputStream = new FileInputStream(file);
             ObjectInputStream out = new ObjectInputStream(inputStream);

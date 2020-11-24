@@ -6,25 +6,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class StartListener implements ActionListener{
     private boolean targetTeam;
     private final StartMenu menu;
     private final JFrame window;
     private final ColourPicker picker;
-    private String boardFile;
+    private File boardFile;
 
     public StartListener(JFrame window, StartMenu menu){
             this.menu = menu;
             this.window = window;
             this.picker = new ColourPicker(this);
 
-            this.boardFile = "start.brd";
+            this.boardFile = new File("start.brd");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        /*****************************************************
+        /*
          *    Title: ActionEvent Class
          *    Author: Oracle
          *    Site owner/sponsor: https://docs.oracle.com/
@@ -89,7 +90,7 @@ public class StartListener implements ActionListener{
 
             int status = picker.showOpenDialog(null);
             if(status == JFileChooser.APPROVE_OPTION)
-                boardFile = picker.getSelectedFile().getName();
+                boardFile = picker.getSelectedFile();
     }
 
     private void StartGame(){

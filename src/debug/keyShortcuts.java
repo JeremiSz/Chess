@@ -21,6 +21,22 @@ public class keyShortcuts extends KeyAdapter {
             case ('s'):
                 saveBoard();
                 break;
+
+            case('p'):
+                kill("Pawn");
+                break;
+            case ('r'):
+                kill("Rook");
+                break;
+            case('q'):
+                kill("Queen");
+                break;
+            case ('k'):
+                kill("King");
+                break;
+            case ('B'):
+                kill("Bishop");
+                break;
         }
     }
 
@@ -47,6 +63,16 @@ public class keyShortcuts extends KeyAdapter {
         catch (IOException e){
             e.printStackTrace();
             System.err.println(e.getMessage() + " " + e.getCause());
+        }
+    }
+
+    private void kill(String name){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if(Board.grid[i][j] != null && Board.grid[i][j].toString().equals(name))
+                    Board.grid[i][j] = null;
+            }
+
         }
     }
 }
