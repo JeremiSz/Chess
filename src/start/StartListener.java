@@ -96,6 +96,6 @@ public class StartListener implements ActionListener{
     private void StartGame(){
         window.setVisible(false);
         window.remove(menu);
-        new Board(boardFile,menu.getTeamColour(true),menu.getTeamColour(false),menu.getBoardSize(),window);
+        new Board(boardFile,menu.getTeamColour(true),menu.getTeamColour(false),menu.getBoardSize(),window,menu.getTeamStart());
     }
 }

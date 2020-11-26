@@ -14,11 +14,16 @@ public class Queen extends Piece{
         int deltaY = firstPosition[1] - secondPosition[1];
 
         if((deltaX == deltaY)||(deltaX == -deltaY)){
-            byte moveY = (byte)(deltaY<0?-1:1);
-            if(deltaX<0)
-                return Bishop.checkBetween(secondPosition,firstPosition,moveY);
-            else
-                return Bishop.checkBetween(firstPosition,secondPosition,moveY);
+            byte directionY;
+
+            if(deltaX<0) {
+                directionY = (byte) (deltaY > 0 ? -1 : 1);
+                return Bishop.checkBetween(firstPosition, secondPosition, directionY);
+            }
+            else {
+                directionY = (byte) (deltaY > 0 ? 1 : -1);
+                return Bishop.checkBetween(secondPosition, firstPosition, directionY);
+            }
         }
         else if(deltaX == 0 || deltaY == 0){
             return  Rook.checkBetweenRook(firstPosition, secondPosition, deltaX, deltaY);

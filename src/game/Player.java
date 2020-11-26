@@ -11,11 +11,12 @@ public class Player extends MouseAdapter {
 
     private final Board board;
 
-    private boolean currentTeam = false;
+    private boolean currentTeam;
     private int[] firstPos, lastPos;
     private Piece selected;
 
-    public Player(Board board) {
+    public Player(Board board, boolean team) {
+        currentTeam = team;
         this.board = board;
     }
 

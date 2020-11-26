@@ -19,20 +19,20 @@ public class Board extends JPanel{
     private final Color team1;
     private final Color team2;
 
-    public Board(File file,Color team1, Color team2, int size,JFrame window){
+    public Board(File file,Color team1, Color team2, int size,JFrame window, boolean selectedTeam){
         super();
         this.team1 = team1;
         this.team2 = team2;
         this.window = window;
 
-        makeScreen(size);
+        makeScreen(size,selectedTeam);
         setTeam(file);
         window.pack();
         window.setVisible(true);
 
     }
 
-    private void makeScreen(int size){
+    private void makeScreen(int size,boolean team){
 
         String url;
         Dimension boardSize;
@@ -71,7 +71,7 @@ public class Board extends JPanel{
         }
         checkerboard = getImage(url);
         window.add(this);
-        Player mouseAdapt = new Player(this);
+        Player mouseAdapt = new Player(this,team);
 
         keyShortcuts keyAdapter = new keyShortcuts();
         window.addKeyListener(keyAdapter);
