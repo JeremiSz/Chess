@@ -1,0 +1,5 @@
+This program is ment to act as a virtual chess board. This game can be customised with by changing the colour of the pieces, change which player starts or the starting arangment of the board.
+
+The game implements many of the rules of chess. It prevents players moving multiple piece durnig one of their turns. Pieces are limited to moving within their respective valid moves. Queening pawns and towering were both left out due to time.
+
+Precautions are in place to prevent errors from loading non board files as board and trying to move a piece off of the window.
