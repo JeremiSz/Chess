@@ -199,7 +199,7 @@ public class Board extends JPanel{
         int result = JOptionPane.showConfirmDialog(null, output, "Winner!", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
-            GameControl.main(new String[0]);
+            GameControl.startGame();
         } else {
             System.exit(0);
         }
