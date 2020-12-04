@@ -22,7 +22,7 @@ public class Player extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (this.firstPos != null) return;
+        //if (this.firstPos != null) return;
 
         int[] firstPos = Position.gridFromScreen(e.getX(), e.getY());
 
@@ -75,5 +75,9 @@ public class Player extends MouseAdapter {
 
         Piece target = Board.grid[lastPos[0]][lastPos[1]];
         return target.toString().equals("King");
+    }
+
+    public Piece getSelected() {
+        return selected;
     }
 }

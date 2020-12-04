@@ -73,7 +73,7 @@ public class Board extends JPanel{
         window.add(this);
         Player mouseAdapt = new Player(this,team);
 
-        keyShortcuts keyAdapter = new keyShortcuts();
+        keyShortcuts keyAdapter = new keyShortcuts(mouseAdapt);
         window.addKeyListener(keyAdapter);
 
         this.addMouseListener(mouseAdapt);

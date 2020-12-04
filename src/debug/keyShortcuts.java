@@ -1,6 +1,7 @@
 package debug;
 
 import game.Board;
+import game.Player;
 import pieces.Piece;
 
 import javax.swing.*;
@@ -10,6 +11,10 @@ import java.io.*;
 
 public class keyShortcuts extends KeyAdapter {
 
+    Player player;
+    public keyShortcuts(Player player){
+        this.player = player;
+    }
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getKeyChar()){
@@ -37,7 +42,13 @@ public class keyShortcuts extends KeyAdapter {
             case ('B'):
                 kill("Bishop");
                 break;
+            case('c'):
+                showSelected();
+                break;
         }
+    }
+    private void showSelected(){
+        System.out.print(player.getSelected());
     }
 
     private void printBoard(){
