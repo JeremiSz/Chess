@@ -16,8 +16,6 @@ public class Rook extends Piece{
         int deltaY = firstPosition[1] - secondPosition[1];
 
         if (deltaX != 0 && deltaY != 0) return false;
-        System.out.println("first: " + firstPosition[0] + " " + firstPosition[1] + " Second: " + secondPosition[0] + " " + secondPosition[1]);
-        System.out.println("DX: " + deltaX + " DY: " + deltaY);
         return  !checkBetweenRook(firstPosition, secondPosition, deltaX, deltaY);
     }
 

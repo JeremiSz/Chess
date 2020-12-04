@@ -26,7 +26,7 @@ public class Queen extends Piece{
             }
         }
         else if(deltaX == 0 || deltaY == 0){
-            return  Rook.checkBetweenRook(firstPosition, secondPosition, deltaX, deltaY);
+            return  !Rook.checkBetweenRook(firstPosition, secondPosition, deltaX, deltaY);
         }
         else
             return false;
