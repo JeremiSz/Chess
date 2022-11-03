@@ -39,7 +39,7 @@ public class keyShortcuts extends KeyAdapter {
             case ('k'):
                 kill("King");
                 break;
-            case ('B'):
+            case ('b'):
                 kill("Bishop");
                 break;
             case('c'):
@@ -55,7 +55,7 @@ public class keyShortcuts extends KeyAdapter {
         for (Piece[] ps: Board.grid) {
             for (Piece p: ps) {
                 if(p != null)
-                    System.out.print("[" + p.toString() + "]");
+                    System.out.print("[" + p + "]");
                 else
                     System.out.print("[]");
             }
