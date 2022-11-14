@@ -75,7 +75,7 @@ public class StartMenu  extends  JPanel{
         teamSelector.add(team2Start);
         this.add(team2Start);
         teamSelector.setSelected(team1Start.getModel(),true);
-//End of non  original code
+//End of non-original code
 
         JButton chooseBoard = new JButton("Choose Board");
         chooseBoard.setActionCommand("SetBoard");
