@@ -2,12 +2,14 @@ package debug;
 
 import game.Board;
 import game.Player;
+import microservice.board_manager.BoardSaver;
+import microservice.board_manager.BoardSaverFile;
 import pieces.Piece;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.*;
+import java.io.IOException;
 
 public class keyShortcuts extends KeyAdapter {
 
@@ -64,16 +66,14 @@ public class keyShortcuts extends KeyAdapter {
     }
 
     private void saveBoard(){
-        String output = JOptionPane.showInputDialog(null,"Name board state","Save Board",JOptionPane.QUESTION_MESSAGE);
-        try{
-            FileOutputStream outputStream = new FileOutputStream(output + ".brd");
-            ObjectOutputStream out = new ObjectOutputStream(outputStream);
-            out.writeObject(Board.grid);
-            out.close();
+        try {
+            String output = JOptionPane.showInputDialog(null, "Name board state", "Save Board", JOptionPane.QUESTION_MESSAGE);
+            BoardSaver boardSaver = new BoardSaverFile();
+            boardSaver.save(output, Board.grid);
         }
         catch (IOException e){
             e.printStackTrace();
-            System.err.println(e.getMessage() + " " + e.getCause());
+
         }
     }
 

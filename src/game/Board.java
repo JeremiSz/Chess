@@ -1,6 +1,8 @@
 package game;
 
 import debug.keyShortcuts;
+import microservice.board_manager.BoardSaver;
+import microservice.board_manager.BoardSaverFile;
 import pieces.*;
 import start.GameControl;
 
@@ -19,7 +21,7 @@ public class Board extends JPanel{
     private final Color team1;
     private final Color team2;
 
-    public Board(File file,Color team1, Color team2, int size,JFrame window, boolean selectedTeam){
+    public Board(String file,Color team1, Color team2, int size,JFrame window, boolean selectedTeam){
         super();
         this.team1 = team1;
         this.team2 = team2;
@@ -118,12 +120,10 @@ public class Board extends JPanel{
     }
     //End of refactored code
 
-    private void setTeam(File file){
+    private void setTeam(String file){
         try {
-            FileInputStream inputStream = new FileInputStream(file);
-            ObjectInputStream out = new ObjectInputStream(inputStream);
-            grid = (Piece[][])out.readObject();
-            out.close();
+            BoardSaver boardSaver = new BoardSaverFile();
+            grid = (Piece[][]) boardSaver.load(file);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             grid = new Piece[8][8];

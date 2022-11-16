@@ -1,0 +1,13 @@
+@startuml
+
+[GUI] <- [logic] : change board state
+[GUI] -> [player] : piece moved
+[player] --> [logic] : piece moved
+[GUI] -> [board manager] : board name
+[logic] --> [player] : enable/disable
+[pieces] --> [logic] : pieces rules
+[pieces] --> [GUI] : piece visuals
+[board manager] <-- [logic] : board state
+[board manager] -> [logic] : board state
+
+@enduml

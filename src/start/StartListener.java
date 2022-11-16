@@ -13,14 +13,14 @@ public class StartListener implements ActionListener{
     private final StartMenu menu;
     private final JFrame window;
     private final ColourPicker picker;
-    private File boardFile;
+    private String boardFile;
 
     public StartListener(JFrame window, StartMenu menu){
             this.menu = menu;
             this.window = window;
             this.picker = new ColourPicker(this);
 
-            this.boardFile = new File("start.brd");
+            this.boardFile = "start.brd";
     }
 
     @Override
@@ -81,16 +81,8 @@ public class StartListener implements ActionListener{
     }
 
     private void setBoard(){
-        JFrame window;
-        JFileChooser picker;
-            window = new JFrame();
-            picker = new JFileChooser();
-            window.add(picker);
-            window.pack();
-
-            int status = picker.showOpenDialog(null);
-            if(status == JFileChooser.APPROVE_OPTION)
-                boardFile = picker.getSelectedFile();
+        String output = JOptionPane.showInputDialog(null,"Name board state","Save Board",JOptionPane.QUESTION_MESSAGE);
+        boardFile = output;
     }
 
     private void StartGame(){
