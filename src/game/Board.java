@@ -1,9 +1,10 @@
 package game;
 
 import debug.keyShortcuts;
-import microservice.board_manager.BoardSaver;
-import microservice.board_manager.BoardSaverFile;
-import pieces.*;
+import board_manager.BoardSaver;
+import board_manager.BoardSaverFile;
+import pieces.Piece;
+import pieces.PieceFactory;
 import start.GameControl;
 
 import javax.imageio.ImageIO;
@@ -15,7 +16,7 @@ import java.io.*;
 public class Board extends JPanel{
 
     private final JFrame window;
-    public static Piece[][] grid;
+    public static pieces.Piece[][] grid;
     private BufferedImage checkerboard;
 
     private final Color team1;
@@ -97,7 +98,7 @@ public class Board extends JPanel{
     public void paint(Graphics g) {
         super.paint(g);
         g.drawImage(checkerboard,0,0,null);
-        Piece current;
+        pieces.Piece current;
         boolean currentTeam = true;
         g.setColor(this.team1);
         for (int x = 0; x < 8; x++) {
@@ -123,28 +124,18 @@ public class Board extends JPanel{
     private void setTeam(String file){
         try {
             BoardSaver boardSaver = new BoardSaverFile();
-            grid = (Piece[][]) boardSaver.load(file);
+            grid = (pieces.Piece[][]) boardSaver.load(file);
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            grid = new Piece[8][8];
-            boolean team = true;
-            for (int i = 0; i < 2; i++) {
-                new Rook(team).movePiece(0,team?0:7,0,3);
-                new Knight(team).movePiece(1,team?0:7,0,3);
-                new Bishop(team).movePiece(2,team?0:7,0,3);
-                new King(team).movePiece(3,team?0:7,0,3);
-                new Queen(team).movePiece(4,team?0:7,0,3);
-                new Bishop(team).movePiece(5,team?0:7,0,3);
-                new Knight(team).movePiece(6,team?0:7,0,3);
-                new Rook(team).movePiece(7,team?0:7,0,3);
-
-                for (int j = 0; j < 8; j++) {
-                    new Pawn(team).movePiece(j, team ? 1 : 6, 0, 3);
+            grid = new pieces.Piece[8][8];
+            PieceFactory factory = new PieceFactory();
+            for(int y=0; y<grid.length; y++) {
+                Piece[] column = grid[y];
+                for (int x=0;x<column.length;x++) {
+                    Piece piece = factory.createPiece(x,y);
+                    if(piece != null)
+                        piece.movePiece(x,y,x,y);
                 }
-
-                team = false;
             }
-
         }
     }
     /*****************************************************

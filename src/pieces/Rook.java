@@ -2,7 +2,7 @@ package pieces;
 
 import game.Board;
 
-public class Rook extends Piece{
+public class Rook extends Piece {
 
     public Rook(boolean team){
         super(team?"♖":"♜","Rook",team);

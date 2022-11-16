@@ -1,4 +1,4 @@
-package microservice.board_manager;
+package board_manager;
 
 import java.io.IOException;
 

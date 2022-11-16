@@ -2,8 +2,8 @@ package debug;
 
 import game.Board;
 import game.Player;
-import microservice.board_manager.BoardSaver;
-import microservice.board_manager.BoardSaverFile;
+import board_manager.BoardSaver;
+import board_manager.BoardSaverFile;
 import pieces.Piece;
 
 import javax.swing.*;
@@ -54,7 +54,7 @@ public class keyShortcuts extends KeyAdapter {
     }
 
     private void printBoard(){
-        for (Piece[] ps: Board.grid) {
+        for (pieces.Piece[] ps: Board.grid) {
             for (Piece p: ps) {
                 if(p != null)
                     System.out.print("[" + p + "]");

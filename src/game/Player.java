@@ -1,7 +1,5 @@
 package game;
 
-import pieces.Piece;
-
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,7 +11,7 @@ public class Player extends MouseAdapter {
 
     private boolean currentTeam;
     private int[] firstPos, lastPos;
-    private Piece selected;
+    private pieces.Piece selected;
 
     public Player(Board board, boolean team) {
         currentTeam = team;
@@ -73,11 +71,11 @@ public class Player extends MouseAdapter {
     private boolean checkWin(int[] lastPos) {
         if (!Board.hasPiece(lastPos[0], lastPos[1])) return false;
 
-        Piece target = Board.grid[lastPos[0]][lastPos[1]];
+        pieces.Piece target = Board.grid[lastPos[0]][lastPos[1]];
         return target.toString().equals("King");
     }
 
-    public Piece getSelected() {
+    public pieces.Piece getSelected() {
         return selected;
     }
 }

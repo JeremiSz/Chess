@@ -1,6 +1,6 @@
 package pieces;
 
-public class Knight extends Piece{
+public class Knight extends Piece {
 
     public Knight(boolean team){
         super(team?"♘":"♞","Knight",team);
