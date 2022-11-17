@@ -1,6 +1,6 @@
 package pieces;
 
-import game.Board;
+import logic.GameLogic;
 
 public class Rook extends Piece {
 
@@ -9,29 +9,29 @@ public class Rook extends Piece {
     }
 
     @Override
-    public boolean validateMove(int[] firstPosition, int[] secondPosition) {
-        if(isBlocked(secondPosition)) return false;
+    public boolean validateMove(int[] firstPosition, int[] secondPosition,GameLogic board) {
+        if(board.isBlocked(secondPosition,getTeam())) return false;
 
         int deltaX = firstPosition[0] - secondPosition[0];
         int deltaY = firstPosition[1] - secondPosition[1];
 
         if (deltaX != 0 && deltaY != 0) return false;
-        return  !checkBetweenRook(firstPosition, secondPosition, deltaX, deltaY);
+        return  !checkBetweenRook(firstPosition, secondPosition, deltaX, deltaY,board);
     }
 
-    static boolean checkBetweenRook(int[] firstPosition, int[] secondPosition, int deltaX, int deltaY) {
+    static boolean checkBetweenRook(int[] firstPosition, int[] secondPosition, int deltaX, int deltaY, GameLogic board) {
         if (deltaX == 0) {
             if (deltaY > 0) {
                 System.out.println("A");
                 for (int i = firstPosition[1] - 1; i > secondPosition[1]; i--) {
-                    showSpot(firstPosition[0],i);
-                    if (Board.hasPiece(firstPosition[0], i)) return true;
+                    showSpot(firstPosition[0],i,board);
+                    if (board.hasPiece(firstPosition[0], i)) return true;
                 }
             } else {
                 System.out.println("B");
                 for (int i = firstPosition[1] + 1; i < secondPosition[1]; i++) {
-                    showSpot(firstPosition[0],i);
-                    if (Board.hasPiece(firstPosition[0], i)) return true;
+                    showSpot(firstPosition[0],i,board);
+                    if (board.hasPiece(firstPosition[0], i)) return true;
                 }
             }
         }
@@ -39,21 +39,21 @@ public class Rook extends Piece {
             if (deltaX > 0) {
                 System.out.println("C");
                 for (int i = firstPosition[0] - 1; i > secondPosition[0]; i--) {
-                    showSpot(firstPosition[0],i);
-                    if (Board.hasPiece(i, firstPosition[1])) return true;
+                    showSpot(firstPosition[0],i,board);
+                    if (board.hasPiece(i, firstPosition[1])) return true;
                 }
             } else {
                 System.out.println("D");
                 for (int i = firstPosition[0] + 1; i < secondPosition[0]; i++) {
-                    showSpot(firstPosition[0],i);
-                    if (Board.hasPiece(i, firstPosition[1])) return true;
+                    showSpot(firstPosition[0],i,board);
+                    if (board.hasPiece(i, firstPosition[1])) return true;
                 }
             }
         }
         return false;
     }
 
-    private static void showSpot(int x,int y){
-        System.out.println("X: " + x + " Y: " + y + " " + Board.hasPiece(x,y));
+    private static void showSpot(int x,int y,GameLogic board){
+        System.out.println("X: " + x + " Y: " + y + " " + board.hasPiece(x,y));
     }
 }

@@ -5,7 +5,7 @@ import microservice.FauxServer;
 import java.io.IOException;
 
 public class MicroserviceBoardSaver implements FauxServer {
-    private static final int PORT_NUMBER = 65534;
+    public static final int PORT_NUMBER = 65534;
     private static final String FOUND = "found";
 
     private BoardSaver boardSaver;

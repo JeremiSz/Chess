@@ -1,5 +1,7 @@
 package game;
 
+import logic.GameLogic;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,21 +14,21 @@ public class Player extends MouseAdapter {
     private boolean currentTeam;
     private int[] firstPos, lastPos;
     private pieces.Piece selected;
+    private GameLogic gameLogic;
 
     public Player(Board board, boolean team) {
         currentTeam = team;
         this.board = board;
+        gameLogic = new GameLogic();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        //if (this.firstPos != null) return;
-
         int[] firstPos = Position.gridFromScreen(e.getX(), e.getY());
 
-        if (Board.hasPiece(firstPos[0], firstPos[1]) && Board.grid[firstPos[0]][firstPos[1]].getTeam() == this.currentTeam) {
+        if (gameLogic.hasPiece(firstPos[0], firstPos[1]) && gameLogic.grid[firstPos[0]][firstPos[1]].getTeam() == this.currentTeam) {
             this.firstPos = firstPos;
-            this.selected = Board.grid[firstPos[0]][firstPos[1]];
+            this.selected = gameLogic.grid[firstPos[0]][firstPos[1]];
         }
     }
 
@@ -34,7 +36,7 @@ public class Player extends MouseAdapter {
     public void mouseReleased(MouseEvent e) {
         if (this.lastPos == null || this.firstPos == null) return;
 
-        if (checkWin(lastPos))
+        if (gameLogic.checkWin(lastPos, this))
             this.board.win(currentTeam);
 
         else {
@@ -66,13 +68,6 @@ public class Player extends MouseAdapter {
             this.board.setTempPiece(selected.getSymbol(), team, x, y);
             this.board.repaint();
         }
-    }
-
-    private boolean checkWin(int[] lastPos) {
-        if (!Board.hasPiece(lastPos[0], lastPos[1])) return false;
-
-        pieces.Piece target = Board.grid[lastPos[0]][lastPos[1]];
-        return target.toString().equals("King");
     }
 
     public pieces.Piece getSelected() {

@@ -16,7 +16,6 @@ public class GameControl {
             window.setLocationRelativeTo(null);
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
-
         new StartMenu(window);
     }
 }

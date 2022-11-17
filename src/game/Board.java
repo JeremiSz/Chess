@@ -1,10 +1,7 @@
 package game;
 
 import debug.keyShortcuts;
-import board_manager.BoardSaver;
-import board_manager.BoardSaverFile;
-import pieces.Piece;
-import pieces.PieceFactory;
+import logic.GameLogic;
 import start.GameControl;
 
 import javax.imageio.ImageIO;
@@ -16,20 +13,20 @@ import java.io.*;
 public class Board extends JPanel{
 
     private final JFrame window;
-    public static pieces.Piece[][] grid;
     private BufferedImage checkerboard;
-
+    private GameLogic gameLogic;
     private final Color team1;
     private final Color team2;
 
     public Board(String file,Color team1, Color team2, int size,JFrame window, boolean selectedTeam){
         super();
+        gameLogic = new GameLogic();
         this.team1 = team1;
         this.team2 = team2;
         this.window = window;
 
         makeScreen(size,selectedTeam);
-        setTeam(file);
+        gameLogic.setTeam(file);
         window.pack();
         window.setVisible(true);
 
@@ -103,13 +100,13 @@ public class Board extends JPanel{
         g.setColor(this.team1);
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                current = grid[x][y];
+                current = gameLogic.grid[x][y];
                 if(current != null) {
                     if(current.getTeam() != currentTeam){
                         g.setColor(current.getTeam()? this.team1: this.team2);
                         currentTeam = current.getTeam();
                     }
-                    g.drawString(grid[x][y].getSymbol(), Position.screenFromGrid(x), Position.screenFromGrid(y + 1));
+                    g.drawString(gameLogic.grid[x][y].getSymbol(), Position.screenFromGrid(x), Position.screenFromGrid(y + 1));
                 }
             }
         }
@@ -121,23 +118,6 @@ public class Board extends JPanel{
     }
     //End of refactored code
 
-    private void setTeam(String file){
-        try {
-            BoardSaver boardSaver = new BoardSaverFile();
-            grid = (pieces.Piece[][]) boardSaver.load(file);
-        } catch (IOException | ClassNotFoundException e) {
-            grid = new pieces.Piece[8][8];
-            PieceFactory factory = new PieceFactory();
-            for(int y=0; y<grid.length; y++) {
-                Piece[] column = grid[y];
-                for (int x=0;x<column.length;x++) {
-                    Piece piece = factory.createPiece(x,y);
-                    if(piece != null)
-                        piece.movePiece(x,y,x,y);
-                }
-            }
-        }
-    }
     /*****************************************************
      *    Title: loading image tutorial
      *    Author: Oracle
@@ -158,10 +138,6 @@ public class Board extends JPanel{
         }
     }
     //End of non-original code
-
-    public static boolean hasPiece(int x,int y){
-        return !(grid[x][y] == null);
-    }
 
     private static String tempSymbol;
     private static Color tempColour;

@@ -1,5 +1,7 @@
 package pieces;
 
+import logic.GameLogic;
+
 public class Knight extends Piece {
 
     public Knight(boolean team){
@@ -7,8 +9,8 @@ public class Knight extends Piece {
     }
 
     @Override
-    public boolean validateMove(int[] firstPosition, int[] secondPosition) {
-        if(isBlocked(secondPosition)) return false;
+    public boolean validateMove(int[] firstPosition, int[] secondPosition, GameLogic board) {
+        if(board.isBlocked(secondPosition,getTeam())) return false;
 
         int deltaX = firstPosition[0] - secondPosition[0];
         int deltaY = firstPosition[1] - secondPosition[1];

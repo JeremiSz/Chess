@@ -7,7 +7,6 @@ public class StartMenu  extends  JPanel{
     private final JButton team1Colour,team2Colour;
     private final JComboBox<String> sizePicker;
     private final ButtonGroup teamSelector;
-
     private final JFrame window;
 
     public StartMenu(JFrame window){
@@ -113,6 +112,6 @@ public class StartMenu  extends  JPanel{
     }
 
     public boolean getTeamStart(){
-        return (teamSelector.getSelection().getActionCommand().equals("Start1"));
+        return teamSelector.getSelection().getActionCommand().equals("Start1");
     }
 }

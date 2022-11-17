@@ -30,4 +30,7 @@ public class FauxNetwork {
         }
         server.receiveMessage(message);
     }
+    public boolean hasServer(int address){
+        return servers.containsKey(address);
+    }
 }
