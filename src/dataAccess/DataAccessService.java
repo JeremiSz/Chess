@@ -1,4 +1,4 @@
-package backEnd;
+package dataAccess;
 
 import network.FauxNetwork;
 import network.FauxServer;

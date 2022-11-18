@@ -1,4 +1,4 @@
-package backEnd;
+package dataAccess;
 
 public class Board {
     public Board(String name, Object board){
