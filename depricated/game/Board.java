@@ -26,7 +26,7 @@ public class Board extends JPanel{
         this.window = window;
 
         makeScreen(size,selectedTeam);
-        setTeam(file);
+        //setTeam(file);
         window.pack();
         window.setVisible(true);
 
@@ -81,16 +81,6 @@ public class Board extends JPanel{
         this.setPreferredSize(boardSize);
     }
 
-
-    /*****************************************************
-     *    Title: Class Graphics
-     *    Author: Oracle
-     *    Site owner/sponsor: https://docs.oracle.com/
-     *    Date: 2020
-     *    Code version: edited 20 August 2020
-     *    Availability: https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html (Accessed 9 November 2020)
-     *    Modified:  Added everything but the methods of the Graphics class
-     *****************************************************/
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -116,46 +106,6 @@ public class Board extends JPanel{
             g.drawString(tempSymbol,tempX,tempY);
         }
     }
-    //End of refactored code
-
-    private void setTeam(File file){
-        try {
-            FileInputStream inputStream = new FileInputStream(file);
-            ObjectInputStream out = new ObjectInputStream(inputStream);
-            grid = (Piece[][])out.readObject();
-            out.close();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            grid = new Piece[8][8];
-            boolean team = true;
-            for (int i = 0; i < 2; i++) {
-                new Rook(team).movePiece(0,team?0:7,0,3);
-                new Knight(team).movePiece(1,team?0:7,0,3);
-                new Bishop(team).movePiece(2,team?0:7,0,3);
-                new King(team).movePiece(3,team?0:7,0,3);
-                new Queen(team).movePiece(4,team?0:7,0,3);
-                new Bishop(team).movePiece(5,team?0:7,0,3);
-                new Knight(team).movePiece(6,team?0:7,0,3);
-                new Rook(team).movePiece(7,team?0:7,0,3);
-
-                for (int j = 0; j < 8; j++) {
-                    new Pawn(team).movePiece(j, team ? 1 : 6, 0, 3);
-                }
-
-                team = false;
-            }
-
-        }
-    }
-    /*****************************************************
-     *    Title: loading image tutorial
-     *    Author: Oracle
-     *    Site owner/sponsor: https://docs.oracle.com/
-     *    Date: 2020
-     *    Code version: edited 20 August 2020
-     *    Availability: https://docs.oracle.com/javase/tutorial/2d/images/loadimage.html (Accessed 9 November 2020)
-     *    Modified:  Added everything but the methods of the Graphics class
-     *****************************************************/
     private static BufferedImage getImage(String url){
 
         try {
@@ -165,11 +115,6 @@ public class Board extends JPanel{
             System.err.println("file unable to load");
             return null;
         }
-    }
-    //End of non-original code
-
-    public static boolean hasPiece(int x,int y){
-        return !(grid[x][y] == null);
     }
 
     private static String tempSymbol;

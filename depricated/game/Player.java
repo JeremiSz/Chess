@@ -69,14 +69,6 @@ public class Player extends MouseAdapter {
             this.board.repaint();
         }
     }
-
-    private boolean checkWin(int[] lastPos) {
-        if (!Board.hasPiece(lastPos[0], lastPos[1])) return false;
-
-        Piece target = Board.grid[lastPos[0]][lastPos[1]];
-        return target.toString().equals("King");
-    }
-
     public Piece getSelected() {
         return selected;
     }

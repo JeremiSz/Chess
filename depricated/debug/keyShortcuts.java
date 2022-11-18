@@ -24,7 +24,7 @@ public class keyShortcuts extends KeyAdapter {
                 break;
 
             case ('s'):
-                saveBoard();
+                //saveBoard();
                 break;
 
             case('p'):
@@ -60,20 +60,6 @@ public class keyShortcuts extends KeyAdapter {
                     System.out.print("[]");
             }
             System.out.print("\n");
-        }
-    }
-
-    private void saveBoard(){
-        String output = JOptionPane.showInputDialog(null,"Name board state","Save Board",JOptionPane.QUESTION_MESSAGE);
-        try{
-            FileOutputStream outputStream = new FileOutputStream(output + ".brd");
-            ObjectOutputStream out = new ObjectOutputStream(outputStream);
-            out.writeObject(Board.grid);
-            out.close();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-            System.err.println(e.getMessage() + " " + e.getCause());
         }
     }
 

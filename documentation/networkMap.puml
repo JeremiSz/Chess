@@ -1,6 +1,7 @@
 @startuml
 
 [frontend] -> [backend] : piece moved
+[frontend] -> [backend] : piece validate
 [frontend] -> [backend] : board name
 [frontend] <- [backend] : change board state
 

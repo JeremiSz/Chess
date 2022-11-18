@@ -1,5 +1,7 @@
 package pieces;
 
+import backEnd.Move;
+
 public class King extends Piece {
 
     public King(boolean team){
@@ -7,11 +9,11 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean validateMove(int[] firstPosition, int[] secondPosition) {
-        if(isBlocked(secondPosition)) return false;
+    public boolean validateMove(Move move, Piece[][] board) {
+        if(isBlocked(move.toX, move.toY, board)) return false;
 
-        int deltaX = firstPosition[0] - secondPosition[0];
-        int deltaY = firstPosition[1] - secondPosition[1];
+        int deltaX = move.fromX - move.toX;
+        int deltaY = move.fromY - move.toY;
 
         if(deltaX > 1 || deltaX < -1) return false;
         return deltaY <= 1 && deltaY >= -1;

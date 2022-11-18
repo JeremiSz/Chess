@@ -1,5 +1,6 @@
 package pieces;
 
+import backEnd.Move;
 import game.Board;
 
 public class Pawn extends Piece{
@@ -9,16 +10,16 @@ public class Pawn extends Piece{
     }
 
     @Override
-    public boolean validateMove(int[] firstPosition, int[] secondPosition) {
-        if(isBlocked(secondPosition)) return false;
+    public boolean validateMove(Move move, Piece[][] board) {
+        if(isBlocked(move.toX, move.toY, board)) return false;
 
-        int deltaX = firstPosition[0] - secondPosition[0];
-        int deltaY = firstPosition[1] - secondPosition[1];
+        int deltaX = move.fromX - move.toX;
+        int deltaY = move.fromY - move.toY;
 
         if(deltaX < 0)deltaX = -deltaX;
 
         if(deltaY == ((this.getTeam())?-1:1)){
-            boolean target = Board.hasPiece(secondPosition[0],secondPosition[1]);
+            boolean target = hasPiece(move.toX, move.toY, board);
             if(deltaX == 0 && !target) return true;
             else return deltaX == 1 && target;
         }
