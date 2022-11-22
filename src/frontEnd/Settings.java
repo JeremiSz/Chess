@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Settings {
     private JComboBox<String> sizePicker;
-    public Color team1,team2;
+    public Color team1 = Color.RED,team2 = Color.BLUE;
     private ButtonGroup teamSelector;
     public void setSizePicker(JComboBox<String> sizePicker){
         this.sizePicker = sizePicker;

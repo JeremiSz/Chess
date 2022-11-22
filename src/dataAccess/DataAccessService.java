@@ -37,6 +37,7 @@ public class DataAccessService extends FauxServer {
         catch (FileNotFoundException e){
             e.printStackTrace();
             System.err.println("Error failed");
+
         }
     }
     private void handleSave(Board board){

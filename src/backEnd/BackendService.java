@@ -34,9 +34,9 @@ public class BackendService extends FauxServer{
 
     }
     private void handleNewBoard(Board board){
-        if (board.name.isEmpty())
+        if (board.state != null){
             backend.setBoard((Piece[][]) board.state);
-        else{
+        } else{
             backend.saveBoard(board.name);
         }
     }

@@ -1,5 +1,6 @@
 package frontEnd;
 
+import Data.Board;
 import backEnd.Backend;
 import pieces.Piece;
 import pieces.PieceFactory;
@@ -21,10 +22,10 @@ public class MenuGame extends Menu implements MouseListener, KeyListener, MouseM
     private boolean currentTeam;
     private Position.Pos firstPos;
 
-    public MenuGame(FrontEndClient client,JFrame window,Settings settings){
+    public MenuGame(FrontEndClient client,JFrame window,Settings settings, Piece[][] board){
         super(client);
         this.selected = null;
-        board = new Piece[Backend.BOARD_MAX_INDEX + 1][Backend.BOARD_MAX_INDEX + 1];
+        this.board = board;
         this.client = client;
         this.window = window;
         makeScreen(settings);
@@ -41,6 +42,11 @@ public class MenuGame extends Menu implements MouseListener, KeyListener, MouseM
     public void clean() {
         window.setVisible(false);
         window.remove(ui);
+    }
+
+    @Override
+    public void dirtyBit() {
+        ui.repaint();
     }
 
     @Override
@@ -79,6 +85,7 @@ public class MenuGame extends Menu implements MouseListener, KeyListener, MouseM
 
     private void showSelected(){
         System.out.println(selected);
+        System.out.println(this.firstPos);
     }
     private void printBoard(){
         for (Piece[] ps: board) {
@@ -103,9 +110,7 @@ public class MenuGame extends Menu implements MouseListener, KeyListener, MouseM
     public void keyReleased(KeyEvent e) {}
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -119,8 +124,12 @@ public class MenuGame extends Menu implements MouseListener, KeyListener, MouseM
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (firstPos == null || this.selected == null)
+            return;
         Position.Pos lastPos = new Position.Pos(e.getX(),e.getY());
-        client.realMove(firstPos,lastPos);
+        lastPos = position.gridFromScreen(lastPos);
+
+        client.realMove(firstPos, lastPos);
         currentTeam = !currentTeam;
         ui.repaint();
 
@@ -156,7 +165,11 @@ public class MenuGame extends Menu implements MouseListener, KeyListener, MouseM
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        if (firstPos == null)
+            return;
         Position.Pos tempPos = position.gridFromScreen(new Position.Pos(e.getX(), e.getY()));
+        if (firstPos.x == tempPos.x && firstPos.y == tempPos.y)
+            return;
         client.falseMove(firstPos,tempPos);
     }
 
@@ -164,13 +177,12 @@ public class MenuGame extends Menu implements MouseListener, KeyListener, MouseM
     public void mouseMoved(MouseEvent e) {}
 
     private class UIGame extends JPanel{
-        private Dimension dimension;
-        private BufferedImage checkerboard;
-        private Color colour1,colour2;
+        private final BufferedImage checkerboard;
+        private final Color colour1,colour2;
 
         public UIGame(int size,String url,Settings settings){
             this.setFont(new Font("SansSerif",Font.PLAIN, size /8));
-            dimension = new Dimension(size,size);
+            Dimension dimension = new Dimension(size,size);
             checkerboard = getImage(url);
             this.setPreferredSize(dimension);
             colour1 = settings.team1;
@@ -210,10 +222,6 @@ public class MenuGame extends Menu implements MouseListener, KeyListener, MouseM
                     }
                 }
             }
-        }
-
-        public boolean hasPiece(Position.Pos pos){
-            return (board[pos.x][pos.y] != null);
         }
         public boolean hasPiece(Position.Pos pos, boolean team){
             Piece piece = board[pos.x][pos.y];

@@ -20,6 +20,7 @@ public class FrontEndClient extends FauxClient {
         FauxNetwork.sendMessage(message);
     }
     public void setBoard(String name){
+        name = name.trim();
         Message message = new Message(PORT_ADDRESS,BACKEND_PORT,name);
         FauxNetwork.sendMessage(message);
     }

@@ -14,9 +14,9 @@ public class Position {
         y = y/GRID;
 
         if(x < MIN_INDEX)
-            x = MAX_INDEX;
-        else if(x > MAX_INDEX)
             x = MIN_INDEX;
+        else if(x > MAX_INDEX)
+            x = MAX_INDEX;
 
         if(y < MIN_INDEX)
             y = MIN_INDEX;
@@ -36,9 +36,6 @@ public class Position {
         public Pos(int x, int y){
             this.x = x;
             this.y = y;
-        }
-        public Pos(){
-            this(0,0);
         }
         public int x,y;
     }

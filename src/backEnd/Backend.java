@@ -39,6 +39,7 @@ public class Backend {
             }
             team = false;
         }
+        updateBoardState();
     }
     public void updateBoardState(){
         client.updateScreen(board);
@@ -57,19 +58,39 @@ public class Backend {
         move(move,tempBoard);
         client.updateScreen(tempBoard);
     }
+    private void printBoard(){
+        for (Piece[] ps: board) {
+            for (Piece p: ps) {
+                if(p != null)
+                    System.out.print("[" + p + "]");
+                else
+                    System.out.print("[]");
+            }
+            System.out.print("\n");
+        }
+    }
     private void move(Move move, Piece[][] board){
+        printBoard();
+        System.out.println(move.fromX + " " + move.fromY);
         Piece piece = board[move.fromX][move.fromX];
+        System.out.println(piece);
+        board[move.fromX][move.fromY] = new Queen(true);
+        if (piece == null)
+            return;
         board[move.fromX][move.fromY] = null;
         board[move.toX][move.toY] = piece;
     }
     public void trueMove(Move move){
+
         Piece piece = board[move.fromX][move.fromY];
-        if (piece.validateMove(move,board)){
-            move(move,board);
-            client.updateScreen(board);
-        }
+
         if (checkWin(move.toX, move.toY)){
             client.winGame(currentTeam);
+        }
+        else if (piece.validateMove(move,board)){
+            move(move,board);
+            client.updateScreen(board);
+
         }
 
     }

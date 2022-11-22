@@ -17,4 +17,7 @@ public class MenuWin extends Menu{
 
     @Override
     public void clean() {}
+
+    @Override
+    public void dirtyBit() {}
 }

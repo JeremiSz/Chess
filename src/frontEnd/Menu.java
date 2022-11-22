@@ -6,4 +6,5 @@ public abstract class Menu {
         this.client = client;
     }
     public abstract void clean();
+    public abstract void dirtyBit();
 }

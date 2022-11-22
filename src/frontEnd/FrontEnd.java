@@ -26,13 +26,14 @@ public class FrontEnd {
 
     public void setBoard(Piece[][] board){
         this.board = board;
+        currentMenu.dirtyBit();
     }
     public void startGame(){
         currentMenu.clean();
         if (board == null){
             client.setBoard("");
         }
-        currentMenu = new MenuGame(client,window,settings);
+        currentMenu = new MenuGame(client,window,settings,board);
     }
     public void win(boolean winningTeam){
         currentMenu.clean();

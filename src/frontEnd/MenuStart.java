@@ -31,6 +31,9 @@ public class MenuStart extends Menu implements ActionListener {
     }
 
     @Override
+    public void dirtyBit() {}
+
+    @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
             case("SetTeam1"):
@@ -119,8 +122,8 @@ public class MenuStart extends Menu implements ActionListener {
         }
         private void createTeams(ActionListener listener,Settings settings){
             ButtonGroup teamSelector = new ButtonGroup();
-            createTeam("Team 1",Color.RED,"SetTeam1","Start1",listener,teamSelector,0);
-            createTeam("Team 2",Color.BLUE,"SetTeam2","Start2",listener,teamSelector,1);
+            createTeam("Team 1",settings.team1,"SetTeam1","Start1",listener,teamSelector,0);
+            createTeam("Team 2",settings.team2,"SetTeam2","Start2",listener,teamSelector,1);
             teamSelector.setSelected(teamSelector.getElements().nextElement().getModel(),true);
             settings.setTeamSelector(teamSelector);
         }
