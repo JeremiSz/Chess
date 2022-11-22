@@ -1,5 +1,6 @@
 import backEnd.BackendService;
 import dataAccess.DataAccessService;
+import frontEnd.FrontEndService;
 
 public class Main {
     final static int DATA_ACCESS_PORT = 665533;
@@ -8,5 +9,6 @@ public class Main {
     public static void main(String[] args) {
         DataAccessService dataAccessService = new DataAccessService(DATA_ACCESS_PORT);
         BackendService backendService = new BackendService(BACK_END_PORT,DATA_ACCESS_PORT,FRONT_END_PORT);
+        FrontEndService frontEndService = new FrontEndService(FRONT_END_PORT, BACK_END_PORT);
     }
 }

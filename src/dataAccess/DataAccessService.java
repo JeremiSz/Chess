@@ -1,5 +1,6 @@
 package dataAccess;
 
+import Data.Board;
 import network.FauxNetwork;
 import network.FauxServer;
 import network.Message;
@@ -18,9 +19,10 @@ public class DataAccessService extends FauxServer {
 
     @Override
     public void receiveMessage(Message message) {
-        if (String.class.equals(message.payload.getClass())) {
+        Class payloadClass = message.payload.getClass();
+        if (payloadClass.equals(String.class)) {
             handleLoad((String) message.payload, message.source);
-        } else if (Board.class.equals(message.payload.getClass())) {
+        } else if (payloadClass.equals(Board.class)) {
             handleSave((Board) message.payload);
         }
     }

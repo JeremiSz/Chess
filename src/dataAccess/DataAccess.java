@@ -1,5 +1,7 @@
 package dataAccess;
 
+import Data.Board;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 

@@ -1,7 +1,6 @@
 package pieces;
 
-import backEnd.Move;
-import game.Board;
+import Data.Move;
 
 public class Pawn extends Piece{
 

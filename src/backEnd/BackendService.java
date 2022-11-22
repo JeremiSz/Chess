@@ -1,36 +1,44 @@
 package backEnd;
 
-import dataAccess.Board;
+import Data.Board;
+import Data.Move;
 import network.FauxNetwork;
 import network.FauxServer;
 import network.Message;
 import pieces.Piece;
 
 public class BackendService extends FauxServer{
-    private int PORT_ADDRESS;
-    private int DATA_ADDRESS;
-    private Backend backend;
+    private final int PORT_ADDRESS;
+    private final int DATA_ADDRESS;
+    private final Backend backend;
     public BackendService(int port, int dataAddress,int frontAddress){
         super(port);
         this.PORT_ADDRESS = port;
-        this.backend = new Backend(new BackendResponder(PORT_ADDRESS,frontAddress));
         this.DATA_ADDRESS = dataAddress;
+        this.backend = new Backend(new BackendClient(PORT_ADDRESS,frontAddress,DATA_ADDRESS));
     }
     @Override
     public void receiveMessage(Message message) {
-        if (message.payload.getClass().equals(Board.class)){
+        Class<?> payloadClass = message.payload.getClass();
+        if (payloadClass.equals(Board.class)){
             handleNewBoard((Board) message.payload);
-        } else if (message.payload.getClass().equals(String.class)) {
+        }else if (payloadClass.equals(String.class)) {
             handleBoardName(message);
-        } else if (message.payload.getClass().equals(Boolean.class)) {
+        }else if (payloadClass.equals(Boolean.class)) {
             handleSetStartingTeam((Boolean) message.payload);
-        }else if (message.payload.getClass().equals(Move.class)){
+        }else if (payloadClass.equals(Move.class)){
             handleMove((Move) message.payload);
+        }else if (payloadClass.equals(Piece.class)) {
+            handlePieceKill((Piece) message.payload);
         }
 
     }
     private void handleNewBoard(Board board){
-        backend.setBoard((Piece[][]) board.state);
+        if (board.name.isEmpty())
+            backend.setBoard((Piece[][]) board.state);
+        else{
+            backend.saveBoard(board.name);
+        }
     }
     private void handleBoardName(Message message){
         String name = (String) message.payload;
@@ -43,6 +51,7 @@ public class BackendService extends FauxServer{
             FauxNetwork.sendMessage(message);
         }
         backend.updateBoardState();
+        backend.start();
     }
     private void handleSetStartingTeam(Boolean team){
         backend.setCurrentTeam(team);
@@ -55,6 +64,9 @@ public class BackendService extends FauxServer{
         }else {
             backend.trueMove(move);
         }
+    }
+    private void handlePieceKill(Piece piece){
+        backend.kill(piece.toString());
     }
 
 }

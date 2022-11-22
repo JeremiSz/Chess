@@ -11,33 +11,23 @@ public class PieceFactory {
         Queen,
         Rook
     }
-    public void makePiece(PieceNum num,int x, boolean team,Piece[][] board){
-        final int BOARD_START = 0, BOARD_END = 7;
-        int y = team? Backend.BOARD_MIN_INDEX :Backend.BOARD_MAX_INDEX ;
+    public Piece makePiece(PieceNum num,boolean team){
         Piece piece;
         switch (num){
             case King:
-                piece=  new King(team);
-                break;
+                return new King(team);
             case Pawn:
-                piece =  new Pawn(team);
-                break;
+                return new Pawn(team);
             case Rook:
-                piece =  new Rook(team);
-                break;
+                return new Rook(team);
             case Queen:
-                piece =  new Queen(team);
-                break;
+                return  new Queen(team);
             case Bishop:
-                piece =  new Bishop(team);
-                break;
+                return new Bishop(team);
             case Knight:
-                piece =  new Knight(team);
-                break;
+                return new Knight(team);
             default:
-                piece = null;
-                break;
+                return null;
         }
-        board[x][y] = piece;
     }
 }

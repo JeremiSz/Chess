@@ -1,4 +1,4 @@
-package dataAccess;
+package Data;
 
 public class Board {
     public Board(String name, Object board){

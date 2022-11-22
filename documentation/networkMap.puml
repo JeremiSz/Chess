@@ -1,11 +1,17 @@
 @startuml
 
-[frontend] -> [backend] : piece moved
-[frontend] -> [backend] : piece validate
-[frontend] -> [backend] : board name
-[frontend] <- [backend] : change board state
+[backend] -> [frontend] : start game
+[data access] <- [backend] : save board
+[backend] -> [frontend] : update screen
+[backend] -> [frontend] : win game
+[frontend] -> [backend] : real move
+[frontend] -> [backend] : save board
+[frontend] -> [backend] : kill piece
+[frontend] -> [backend] : set starting team
+[frontend] -> [backend] : set board
+[frontend] -> [backend] : restart
+[frontend] -> [backend] : false move
 
-[backend] -> [data access] : store board
-[backend] <- [data access] : load board
+[data access] -> [backend] : load board
 
 @enduml

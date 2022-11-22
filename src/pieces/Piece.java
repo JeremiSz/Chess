@@ -1,8 +1,6 @@
 package pieces;
 
-import backEnd.Backend;
-import backEnd.Move;
-import game.Board;
+import Data.Move;
 
 import java.io.Serializable;
 public abstract class Piece implements Serializable {
@@ -27,16 +25,6 @@ public abstract class Piece implements Serializable {
 
     public String getSymbol() {
         return symbol;
-    }
-
-    public void movePiece(int toX, int toY, int fromX, int fromY){
-        Board.grid[fromX][fromY] = null;
-        Board.grid[toX][toY] = this;
-    }
-
-    public void movePiece(int[] to, int[] from){
-        Board.grid[from[0]][from[1]] = null;
-        Board.grid[to[0]][to[1]] = this;
     }
 
     protected boolean isBlocked(int x, int y ,Piece[][] board){

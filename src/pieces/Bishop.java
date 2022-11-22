@@ -1,6 +1,6 @@
 package pieces;
 
-import backEnd.Move;
+import Data.Move;
 
 public class Bishop extends Piece{
 
