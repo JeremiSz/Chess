@@ -12,6 +12,7 @@ public class Position {
         int y = pos.y;
         x = x/GRID;
         y = y/GRID;
+        y -=1;
 
         if(x < MIN_INDEX)
             x = MIN_INDEX;
@@ -22,7 +23,6 @@ public class Position {
             y = MIN_INDEX;
         else if(y > MAX_INDEX)
             y = MAX_INDEX;
-
         pos.x = x;
         pos.y = y;
         return pos;

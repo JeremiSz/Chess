@@ -85,7 +85,10 @@ public class MenuGame extends Menu implements MouseListener, KeyListener, MouseM
 
     private void showSelected(){
         System.out.println(selected);
-        System.out.println(this.firstPos);
+        if (firstPos == null)
+            System.out.println("null :first pos");
+        else
+            System.out.println(this.firstPos.x + " " + this.firstPos.y + " :first pos");
     }
     private void printBoard(){
         for (Piece[] ps: board) {
@@ -124,22 +127,20 @@ public class MenuGame extends Menu implements MouseListener, KeyListener, MouseM
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (firstPos == null || this.selected == null)
-            return;
-        Position.Pos lastPos = new Position.Pos(e.getX(),e.getY());
-        lastPos = position.gridFromScreen(lastPos);
+        if (firstPos != null && this.selected != null) {
+            Position.Pos lastPos = new Position.Pos(e.getX(), e.getY());
+            lastPos = position.gridFromScreen(lastPos);
 
-        client.realMove(firstPos, lastPos);
-        currentTeam = !currentTeam;
-        ui.repaint();
-
+            client.realMove(firstPos, lastPos);
+            currentTeam = !currentTeam;
+            ui.repaint();
+        }
         this.firstPos = null;
         this.selected = null;
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {}
-
     @Override
     public void mouseExited(MouseEvent e) {}
     private void makeScreen(Settings settings){
@@ -165,8 +166,9 @@ public class MenuGame extends Menu implements MouseListener, KeyListener, MouseM
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (firstPos == null)
+        if (firstPos == null) {
             return;
+        }
         Position.Pos tempPos = position.gridFromScreen(new Position.Pos(e.getX(), e.getY()));
         if (firstPos.x == tempPos.x && firstPos.y == tempPos.y)
             return;
@@ -225,6 +227,7 @@ public class MenuGame extends Menu implements MouseListener, KeyListener, MouseM
         }
         public boolean hasPiece(Position.Pos pos, boolean team){
             Piece piece = board[pos.x][pos.y];
+            System.out.println(piece + " " + pos.x + " " + pos.y);
             return (piece != null)&&piece.getTeam() == team ;
         }
     }

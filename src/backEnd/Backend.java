@@ -48,15 +48,26 @@ public class Backend {
         this.currentTeam = team;
     }
     public void falseMove(Move move){
-        Piece piece = board[move.fromX][move.fromY];
+        Piece piece = getPiece(move);
+        if (piece == null){
+            return;
+        }
         if (piece.validateMove(move,board)){
             fakeMove(move);
         }
     }
     private void fakeMove(Move move){
-        Piece[][] tempBoard = board.clone();
+        Piece[][] tempBoard = copy(board);
         move(move,tempBoard);
         client.updateScreen(tempBoard);
+    }
+    private Piece[][] copy(Piece[][] board){
+        int size = BOARD_MAX_INDEX + 1;
+        Piece[][] newBoard = new Piece[size][size];
+        for (int i = 0; i < size; i++) {
+            System.arraycopy(board[i], 0, newBoard[i], 0, BOARD_MAX_INDEX);
+        }
+        return newBoard;
     }
     private void printBoard(){
         for (Piece[] ps: board) {
@@ -70,27 +81,20 @@ public class Backend {
         }
     }
     private void move(Move move, Piece[][] board){
-        printBoard();
-        System.out.println(move.fromX + " " + move.fromY);
-        Piece piece = board[move.fromX][move.fromX];
-        System.out.println(piece);
-        board[move.fromX][move.fromY] = new Queen(true);
+        Piece piece = getPiece(move);
         if (piece == null)
             return;
         board[move.fromX][move.fromY] = null;
         board[move.toX][move.toY] = piece;
     }
     public void trueMove(Move move){
-
-        Piece piece = board[move.fromX][move.fromY];
-
+        Piece piece = getPiece(move);
         if (checkWin(move.toX, move.toY)){
             client.winGame(currentTeam);
         }
-        else if (piece.validateMove(move,board)){
+        else if (piece != null && piece.validateMove(move,board)){
             move(move,board);
             client.updateScreen(board);
-
         }
 
     }
@@ -98,8 +102,11 @@ public class Backend {
         client.updateScreen(board);
     }
     private boolean checkWin(int toX, int toY) {
-        Piece target = board[toX][toY];
-        return target != null && target.toString().equals("King");
+        Move move = new Move(toX,toY,toX,toY,false,false);
+        Piece target = getPiece(move);
+        if (target == null)
+            return false;
+        return target.toString().equals("King");
     }
     public void kill(String name){
         for (int i = 0; i < 8; i++) {
@@ -112,6 +119,9 @@ public class Backend {
     }
     public void saveBoard(String name){
         client.saveBoard(name,board);
+    }
+    public Piece getPiece(Move move){
+        return board[move.fromX][move.fromY];
     }
 
 

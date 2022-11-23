@@ -15,6 +15,7 @@ public class DataAccessService extends FauxServer {
         super(port);
         PORT_ADDRESS = port;
         this.dataAccess = new DataAccessFile();
+        FauxNetwork.addToNetwork(port,this);
     }
 
     @Override
