@@ -8,8 +8,8 @@ public class FrontEnd {
     private Piece[][] board;
     private final JFrame window;
     private Menu currentMenu;
-    private FrontEndClient client;
-    private Settings settings;
+    private final FrontEndClient client;
+    private final Settings settings;
     public FrontEnd(int portAddress,int backend){
         window = createWindow();
         client = new FrontEndClient(portAddress,backend);

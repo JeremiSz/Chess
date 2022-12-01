@@ -1,7 +1,5 @@
 package frontEnd;
 
-import Data.Board;
-import backEnd.Backend;
 import pieces.Piece;
 import pieces.PieceFactory;
 
@@ -84,7 +82,6 @@ public class MenuGame extends Menu implements MouseListener, KeyListener, MouseM
     }
 
     private void showSelected(){
-        System.out.println(selected);
         if (firstPos == null)
             System.out.println("null :first pos");
         else
